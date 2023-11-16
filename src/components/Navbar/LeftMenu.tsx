@@ -18,10 +18,10 @@ const menuItems = [
     key: 'woman',
     label: 'Woman',
   },
-  // {
-  //   key: 'about',
-  //   label: 'About',
-  // },
+  {
+    key: 'about',
+    label: 'About',
+  },
   // {
   //   key: 'contact',
   //   label: 'Contact',
