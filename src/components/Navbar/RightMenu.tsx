@@ -30,7 +30,7 @@ const RightMenu = ({ mode }: LeftMenuProps) => {
     >
       <Menu mode={mode} >
         <Menu.SubMenu
-
+          key={"user-popup"}
           title={
             <>
               <Avatar icon={<UserOutlined />} />
@@ -38,7 +38,8 @@ const RightMenu = ({ mode }: LeftMenuProps) => {
             </>
           }
         >
-          {submenuItems.map((item) => (
+          {submenuItems.map((item, index) => (
+
             <Menu.Item key={item.key} icon={item.icon}>
               {item.children}
             </Menu.Item>

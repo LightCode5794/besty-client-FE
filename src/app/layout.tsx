@@ -1,11 +1,13 @@
 
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
-import './globals.css'
+import '../styles/globals.css'
 import StyledComponentsRegistry from '../lib/AntdRegistry'
-import Navbar from '../components/Navbar'
+import MyNavbar from '../components/Navbar'
 const roboto = Roboto({ subsets: ['latin'], weight: '400' })
-import { Layout } from 'antd'
+import { Layout } from 'antd';
+
+
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -25,7 +27,7 @@ export default function RootLayout({
 
         <StyledComponentsRegistry>
           <Layout>
-            <Navbar />
+            <MyNavbar />
             {children}
           </Layout>
         </StyledComponentsRegistry>

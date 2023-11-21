@@ -30,6 +30,7 @@ const menuItems = [
 
 const LeftMenu = ({ mode }: LeftMenuProps) => {
   return (
+    // <div></div>
     <Menu mode={mode} disabledOverflow={true} items={menuItems} />
 
   );

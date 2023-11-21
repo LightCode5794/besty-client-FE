@@ -1,11 +1,13 @@
 'use client'
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { Layout, Button, Drawer, ConfigProvider } from "antd";
 import LeftMenu from "./LeftMenu";
 import RightMenu from "./RightMenu";
 import { MenuOutlined } from "@ant-design/icons";
 import '../../styles/NavBar.scss'
+
+import withTheme from '../../theme/themeConfig';
 const Navbar = () => {
   // const router = useRouter();
   const [visible, setVisible] = useState(false);
@@ -26,8 +28,9 @@ const Navbar = () => {
       theme={{
         components: {
           Layout: {
-            colorBgHeader: "#ffffff",
+            headerBg: "#ffffff",
           },
+
         },
       }}
     >
@@ -63,8 +66,11 @@ const Navbar = () => {
         </Layout>
       </nav>
     </ConfigProvider>
-
   );
 };
 
-export default Navbar;
+const MyNavbar = () => {
+  return withTheme(<Navbar />);
+}
+
+export default MyNavbar;

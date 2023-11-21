@@ -1,7 +1,6 @@
 function admin() {
     return <>
-        <div>Admin page</div>
-
+        <div>List product for woman</div>
     </>
 }
 export default admin;
