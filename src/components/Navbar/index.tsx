@@ -8,7 +8,7 @@ import { MenuOutlined } from "@ant-design/icons";
 import '../../styles/NavBar.scss'
 
 import withTheme from '../../theme/themeConfig';
-const Navbar = () => {
+const MyNavbar = () => {
   // const router = useRouter();
   const [visible, setVisible] = useState(false);
 
@@ -69,8 +69,8 @@ const Navbar = () => {
   );
 };
 
-const MyNavbar = () => {
-  return withTheme(<Navbar />);
-}
+// const MyNavbar = () => {
+//   return withTheme(<Navbar />);
+// }
 
 export default MyNavbar;

@@ -1,47 +1,72 @@
 "use client";
 
 import React from "react";
-import { ConfigProvider, ThemeConfig, theme } from "antd";
+import { ConfigProvider, ThemeConfig } from "antd";
 
+// theme/themeConfig.ts
 
-const themeComponent: ThemeConfig = {
+const theme: ThemeConfig = {
+    token: {
+        colorPrimary: '#00b96',
+        colorBgContainer: '#FFFFFF',
+        colorPrimaryBorder: '#171717',
+        colorBorder: '#171717',
+        // fontFamily: 'Roboto',
+        colorBgBase: 'white'
+    },
     components: {
-        Button: {
-            // colorText: '#ffffff',
-            borderRadius: 2,
-            colorPrimaryHover: '#171717',
-            colorPrimaryActive: '#171717',
-            colorBgBase: '#171717',
-        },
         Layout: {
-            colorBgLayout: "#FFFFFF",
+            colorBgLayout: '#FFFFFF',
+            headerBg: '#FFFFFF',
 
         },
-
+        Button: {
+            borderRadius: 0,
+            fontWeight: 500,
+        }
     }
 };
 
-const withTheme = (node: JSX.Element) => (
-    <>
+export default theme;
 
-        <ConfigProvider
-            theme={{
-                token: {
-                    colorPrimary: '#00b96',
-                    colorBgContainer: '#FFFFFF',
-                    colorPrimaryBorder: '#171717',
-                    colorBorder: '#171717',
-                    // colorBgBase: '#171717'
-                },
-            }}
-        >
-            <ConfigProvider
-                theme={themeComponent}
-            >
-                {node}
-            </ConfigProvider>
-        </ConfigProvider>
-    </>
-)
+// const themeComponent: ThemeConfig = {
+//     components: {
+//         Button: {
+//             // colorText: '#ffffff',
+//             borderRadius: 2,
+//             colorPrimaryHover: '#171717',
+//             colorPrimaryActive: '#171717',
+//             colorBgBase: '#171717',
+//         },
+//         Layout: {
+//             colorBgLayout: "#FFFFFF",
 
-export default withTheme;
+//         },
+
+//     }
+// };
+
+// const withTheme = (node: JSX.Element) => (
+//     <>
+
+//         <ConfigProvider
+//             theme={{
+//                 token: {
+//                     colorPrimary: '#00b96',
+//                     colorBgContainer: '#FFFFFF',
+//                     colorPrimaryBorder: '#171717',
+//                     colorBorder: '#171717',
+//                     // colorBgBase: '#171717'
+//                 },
+//             }}
+//         >
+//             <ConfigProvider
+//                 theme={themeComponent}
+//             >
+//                 {node}
+//             </ConfigProvider>
+//         </ConfigProvider>
+//     </>
+// )
+
+// export default withTheme;

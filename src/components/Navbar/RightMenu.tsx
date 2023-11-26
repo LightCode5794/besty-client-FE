@@ -1,7 +1,10 @@
 
-import React from "react";
-import { Menu, Avatar, ConfigProvider } from "antd";
-import { UserOutlined, CodeOutlined, LogoutOutlined } from "@ant-design/icons";
+'use client'
+import React, { useState } from "react";
+import { Menu, Avatar, ConfigProvider, Space, Button } from "antd";
+import { UserOutlined, CodeOutlined, LogoutOutlined, SearchOutlined, ShoppingOutlined } from "@ant-design/icons";
+import Link from "next/link";
+import CartSideBar from "./CartSideBar";
 
 type MenuMode = "horizontal" | "inline";
 
@@ -17,6 +20,18 @@ const submenuItems = [
 
 
 const RightMenu = ({ mode }: LeftMenuProps) => {
+
+  const [open, setOpen] = useState(false);
+
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
+
+
   return (
     <ConfigProvider
       theme={{
@@ -28,12 +43,13 @@ const RightMenu = ({ mode }: LeftMenuProps) => {
         },
       }}
     >
-      <Menu mode={mode} >
+      {/* <Menu mode={mode} >
         <Menu.SubMenu
           key={"user-popup"}
           title={
             <>
               <Avatar icon={<UserOutlined />} />
+              <UserOutlined />
               <span className="username">John Doe</span>
             </>
           }
@@ -45,7 +61,13 @@ const RightMenu = ({ mode }: LeftMenuProps) => {
             </Menu.Item>
           ))}
         </Menu.SubMenu>
-      </Menu>
+      </Menu>  */}
+      <Space size={24} style={{ fontSize: '20px' }}>
+        <SearchOutlined />
+        <UserOutlined />
+        <ShoppingOutlined onClick={showDrawer} />
+        <CartSideBar onClose={onClose} open={open} />
+      </Space>
     </ConfigProvider>
 
   );

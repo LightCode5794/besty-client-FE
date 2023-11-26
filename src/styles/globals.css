@@ -96,7 +96,7 @@ a {
 
 .content-layout-container {
   padding: 24px 48px;
-  min-height: 500px;
+  /* min-height: 500px; */
   /* display: flex; */
   /* flex-direction: column; */
   /* justify-content: center; */

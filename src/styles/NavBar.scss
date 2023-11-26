@@ -9,7 +9,7 @@
     position: sticky;
     top: 0;
     // margin-bottom: 20px;
-    z-index: 9999;
+    z-index: 100;
     min-height: 90px;
     display: flex;
     align-items: center;
@@ -34,7 +34,7 @@
 }
 
 .navbar-menu {
-    width: calc(100% - 200px);
+    width: calc(100% - 16%);
     float: left;
     display: flex;
     align-items: center;
@@ -57,8 +57,9 @@
 
 .navbar-menu .leftMenu {
     float: left;
-    margin-left: 50%;
-    transform: translateX(-120%);
+    margin-left: 26%;
+    // transform: translateX(-120%);
+    // position: absolute;
 
     li {
         font-size: large;

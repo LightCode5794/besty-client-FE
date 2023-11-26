@@ -1,0 +1,24 @@
+.categoryBannerItem {
+    padding-bottom: 80%;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    color: #ffffff;
+    position: relative;
+
+    h4 {
+        font-size: 2.4vw;
+    }
+}
+
+.BannerItemContent {
+    position: absolute;
+    bottom: 0;
+    padding: 32px;
+
+    .ViewLink {
+        color: #ffffff;
+        font-size: medium;
+    }
+}
