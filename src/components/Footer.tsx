@@ -32,7 +32,7 @@ const Footer = () => {
                         <Row gutter={[0, 80]} justify={'center'} >
                             <Col span={24}>
                                 <Space size={380} >
-                                    <h4 style={{ paddingLeft: '200%' }}>MyLOGO</h4>
+                                    <h1 style={{ paddingLeft: '200%' }}>BESTY</h1>
                                     <Space size={100} >
                                         <FacebookFilled style={{ fontSize: '30px' }} />
                                         <InstagramFilled style={{ fontSize: '30px' }} />

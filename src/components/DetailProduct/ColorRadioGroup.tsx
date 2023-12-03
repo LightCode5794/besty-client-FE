@@ -3,15 +3,14 @@ import React, { FC, useState } from 'react';
 import { Card, Flex, Radio, RadioChangeEvent, Space } from 'antd';
 
 interface ColorRadioGroupProps {
-    colors: string[];
+    colors: string[],
+    setSelectedColor: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const ColorRadioGroup: React.FC<ColorRadioGroupProps> = ({ colors }) => {
-
-    const [color, setColor] = useState('');
+const ColorRadioGroup: React.FC<ColorRadioGroupProps> = ({ colors, setSelectedColor }) => {
 
     const onChange = (e: RadioChangeEvent) => {
-        console.log(e.target.value)
+        setSelectedColor(e.target.value)
     };
 
     return (
@@ -22,7 +21,7 @@ const ColorRadioGroup: React.FC<ColorRadioGroupProps> = ({ colors }) => {
         >
             <Space size={20}>
                 {colors.map((color, index) => (
-                    <Flex justify='center'>
+                    <Flex justify='center' key={index}>
                         <Radio value={color} key={index} />
                         <Card style={{ width: 30, backgroundColor: `${color}`, height: 30, borderRadius: 50 }} />
                     </Flex>

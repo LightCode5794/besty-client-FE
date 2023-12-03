@@ -4,7 +4,7 @@
 import {
     Button
 } from 'antd';
-import withTheme from '../../theme/themeConfig';
+import withTheme from '../../../theme/themeConfig';
 import { useRouter } from 'next/navigation';
 
 

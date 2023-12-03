@@ -1,10 +1,12 @@
 
 'use client'
 import React, { useState } from "react";
-import { Menu, Avatar, ConfigProvider, Space, Button } from "antd";
+import { Menu, Avatar, ConfigProvider, Space, Button, Badge } from "antd";
 import { UserOutlined, CodeOutlined, LogoutOutlined, SearchOutlined, ShoppingOutlined } from "@ant-design/icons";
 import Link from "next/link";
-import CartSideBar from "./CartSideBar";
+import CartSideBar from "../Cart/CartSideBar";
+import { useAppSelector } from "@/store/hooks";
+import { selectCart, selectNumberCart } from "@/store/features/cart/cartSlice";
 
 type MenuMode = "horizontal" | "inline";
 
@@ -20,6 +22,8 @@ const submenuItems = [
 
 
 const RightMenu = ({ mode }: LeftMenuProps) => {
+
+  const numberCart = useAppSelector(selectNumberCart)
 
   const [open, setOpen] = useState(false);
 
@@ -62,10 +66,12 @@ const RightMenu = ({ mode }: LeftMenuProps) => {
           ))}
         </Menu.SubMenu>
       </Menu>  */}
-      <Space size={24} style={{ fontSize: '20px' }}>
+      <Space size={32} style={{ fontSize: '20px' }}>
         <SearchOutlined />
         <UserOutlined />
-        <ShoppingOutlined onClick={showDrawer} />
+        <Badge count={numberCart} size={'small'}>
+          <ShoppingOutlined onClick={showDrawer} style={{ fontSize: 20 }} />
+        </Badge>
         <CartSideBar onClose={onClose} open={open} />
       </Space>
     </ConfigProvider>

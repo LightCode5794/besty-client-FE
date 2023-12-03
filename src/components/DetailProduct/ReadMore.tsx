@@ -3,6 +3,7 @@
 import React from 'react';
 import type { CollapseProps } from 'antd';
 import { Collapse, ConfigProvider, Divider } from 'antd';
+import { ProviderProps } from 'react-redux';
 
 const text1 = (
     <p style={{ paddingLeft: 24 }}>
@@ -34,14 +35,17 @@ const text3 = (
     </p>
 );
 
+interface ReadMoreProps {
+    description?: string;
+}
 
-const ReadMore: React.FC<CollapseProps> = ({ }) => {
+const ReadMore = ({ description }: ReadMoreProps) => {
 
     const items: CollapseProps['items'] = [
         {
             key: '1',
             label: 'Mô tả sản phẩm',
-            children: text1,
+            children: description,
         },
         {
             key: '2',
@@ -69,7 +73,7 @@ const ReadMore: React.FC<CollapseProps> = ({ }) => {
                     }
                 }>
                 <Divider style={{ margin: 0, borderColor: '#D9D9D9' }} />
-                <Collapse items={items} defaultActiveKey={['1']} bordered={false} expandIconPosition='end' style={{ backgroundColor: 'inherit' }} />
+                <Collapse items={items} bordered={false} expandIconPosition='end' style={{ backgroundColor: 'inherit' }} />
             </ConfigProvider>
         </>
     )

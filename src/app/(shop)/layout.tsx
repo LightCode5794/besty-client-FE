@@ -1,15 +1,14 @@
 
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
-import '../styles/globals.css'
-import StyledComponentsRegistry from '../lib/AntdRegistry'
-import MyNavbar from '../components/Navbar'
-
-
+import '@/styles/globals.css'
+import StyledComponentsRegistry from '../../lib/AntdRegistry'
+import MyNavbar from '../../components/Navbar'
 
 import { ConfigProvider, Layout } from 'antd';
 import MyFooter from '@/components/Footer'
 import theme from '@/theme/themeConfig'
+import StoreProvider from '../StoreProvider'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -24,7 +23,6 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-
     <html lang="en">
       <body className={roboto.className}>
         <StyledComponentsRegistry>
@@ -32,13 +30,15 @@ export default function RootLayout({
             theme={
               theme
             }>
-            <MyNavbar />
-            {children}
-            <MyFooter />
-
+            <StoreProvider>
+              < MyNavbar />
+              {children}
+              <MyFooter />
+            </StoreProvider>
           </ConfigProvider>
         </StyledComponentsRegistry>
       </body>
-    </html>
+    </html >
+
   )
 }

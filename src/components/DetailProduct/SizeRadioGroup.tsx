@@ -4,6 +4,7 @@ import { Card, Flex, Radio, RadioChangeEvent, Space, ConfigProvider } from 'antd
 
 interface SizeRadioGroupProps {
     sizes: string[];
+    setSelectedSize: React.Dispatch<React.SetStateAction<string>>;
 }
 
 //style radio
@@ -15,12 +16,11 @@ const theme = {
     }
 }
 
-const SizeRadioGroup: React.FC<SizeRadioGroupProps> = ({ sizes }) => {
+const SizeRadioGroup: React.FC<SizeRadioGroupProps> = ({ sizes, setSelectedSize }) => {
 
-    const [size, setSize] = useState('');
 
     const onChange = (e: RadioChangeEvent) => {
-        console.log(e.target.value)
+        setSelectedSize(e.target.value)
     };
 
     return (

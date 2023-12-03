@@ -5,9 +5,8 @@ import { Layout, Button, Drawer, ConfigProvider } from "antd";
 import LeftMenu from "./LeftMenu";
 import RightMenu from "./RightMenu";
 import { MenuOutlined } from "@ant-design/icons";
-import '../../styles/NavBar.scss'
+import '@/styles/NavBar.scss'
 
-import withTheme from '../../theme/themeConfig';
 const MyNavbar = () => {
   // const router = useRouter();
   const [visible, setVisible] = useState(false);
@@ -38,7 +37,7 @@ const MyNavbar = () => {
         <Layout>
           <Layout.Header className="nav-header">
             <div className="logo">
-              <h3 className="brand-font">Brand Here</h3>
+              <h1 className="brand-font" style={{ fontSize: 30 }}>BESTY</h1>
             </div>
             <div className="navbar-menu">
               <div className="leftMenu">
