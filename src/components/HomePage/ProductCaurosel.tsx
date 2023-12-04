@@ -119,8 +119,9 @@ const ProductCarousel = () => {
                                             <b>{product.price} ₫</b>
                                         </div>
 
-                                        <Button className={styles.btnViewProduct}>
-                                            <Link href={'/detailproduct'}>XEM SẢN PHẨM</Link>
+
+                                        <Button className={styles.btnViewProduct} href={'/detailproduct'}>
+                                            <Link href={'/detailproduct'} style={{ width: '100%' }}>XEM SẢN PHẨM</Link>
                                         </Button>
                                     </div>
                                 </div>
