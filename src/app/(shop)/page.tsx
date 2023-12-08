@@ -14,8 +14,9 @@ const HomePage = function Home() {
 
   return (
     <>
-      <HomeSlider />
+
       <Layout>
+        <HomeSlider />
         <div className='content-layout-container'>
           <MyDivider title='HÀNG MỚI VỀ' />
           <ProductCarousel />

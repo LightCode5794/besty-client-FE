@@ -48,7 +48,7 @@ const CartSideBar: React.FC<DrawerProps> = ({ onClose, open }) => {
                                         <p style={{ fontWeight: "bold" }}>{TotalCart} ₫</p>
                                     </Space>
                                 </Flex>
-                                <Button type='primary' style={{ fontSize: 16, marginTop: 16 }}>
+                                <Button type='primary' style={{ fontSize: 16, marginTop: 16 }} >
                                     <Link href={`/checkout/cart`}>Xem giỏ hàng của bạn</Link>
                                 </Button>
                             </Flex>

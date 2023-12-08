@@ -12,16 +12,16 @@ interface LeftMenuProps {
 const menuItems = [
   {
     key: 'man',
-    label: 'Man',
+    label: 'Hàng mới về',
   },
   {
     key: 'woman',
-    label: 'Woman',
+    label: 'Trang phục',
   },
-  {
-    key: 'about',
-    label: 'About',
-  },
+  // {
+  //   key: 'about',
+  //   label: 'About',
+  // },
   // {
   //   key: 'contact',
   //   label: 'Contact',
