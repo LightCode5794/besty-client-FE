@@ -12,13 +12,8 @@ interface RadioBtnGroupProps {
 }
 // const selectedBtnArr : number[] = [];
 
-const RadioGroup: React.FC<RadioBtnGroupProps> = ({ content, isColorContent }) => {
-
-
-    const [activeButtonIndex, setActiveButtonIndex] = useState<number | null>(null);
+const  BtnGroupSelectMulti: React.FC<RadioBtnGroupProps> = ({ content, isColorContent }) => {
     const [ selectedBtnArr, setSelectedBtnArr] = useState<number[]>([]);
-
-   
 
     function handleClickBtn(index: number) {
         //setActiveButtonIndex(index);
@@ -50,7 +45,7 @@ const RadioGroup: React.FC<RadioBtnGroupProps> = ({ content, isColorContent }) =
                     }
                 }}
             >
-                <Space wrap style={{ maxHeight: 200, overflowY: 'auto' }} >
+                <Space wrap >
                     {
                         !isColorContent ?
                             <>
@@ -89,4 +84,4 @@ const RadioGroup: React.FC<RadioBtnGroupProps> = ({ content, isColorContent }) =
     );
 };
 
-export default RadioGroup;
+export default  BtnGroupSelectMulti;

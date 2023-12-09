@@ -1,8 +1,9 @@
 
 
-import { Collapse, Typography } from 'antd';
+import { Collapse, Typography, Image} from 'antd';
 const { Text, Title } = Typography;
-import FilterPanel from '@/components/product/FilterPanel';
+import FilterPanel from '@/components/product/filterPanel/FilterPanel';
+import GridProduct from '@/components/product/productGrid/GridProduct';
 
 function ProductPage() {
     return <>
@@ -12,6 +13,12 @@ function ProductPage() {
             </div>
             <div>
                 <FilterPanel />
+            </div>
+            <div>
+                <Image src='https://d2308c07sw6r8q.cloudfront.net/media/catalog/category/CATBAN-CAMPAGNE-DESK-MIXTE.jpg' width={'100%'} preview={false}/>
+            </div>
+            <div>
+                <GridProduct/>
             </div>
         </div>
     </>

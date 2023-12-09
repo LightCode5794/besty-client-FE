@@ -9,9 +9,7 @@ const theme: ThemeConfig = {
     token: {
         colorPrimary: '#00b96',
         colorBgContainer: '#FFFFFF',
-        colorPrimaryBorder: '#171717',
         colorBorder: '#171717',
-        // fontFamily: 'Roboto',
         colorBgBase: 'white'
     },
     components: {
@@ -23,7 +21,17 @@ const theme: ThemeConfig = {
         Button: {
             borderRadius: 0,
             fontWeight: 500,
+        },
+        Input: {
+            borderRadius: 0,
+            lineWidthFocus: 1,
+
+        },
+        Select: {
+            borderRadius: 0
         }
+
+
     }
 };
 

@@ -21,20 +21,20 @@ export default function CheckoutLayout({
 
     <html lang="en">
       <body className={roboto.className}>
-        <StoreProvider>
-          <StyledComponentsRegistry>
-            <ConfigProvider
-              theme={
-                themeCheckout
-              }>
-              <Header />
-              <div style={{ backgroundColor: '#EAEAEA' }}>
+        <StyledComponentsRegistry>
+          <ConfigProvider
+            theme={
+              theme
+            }>
+            <Header />
+            <div style={{ backgroundColor: '#EAEAEA' }}>
+              <StoreProvider>
                 {children}
-              </div>
-              <Footer />
-            </ConfigProvider>
-          </StyledComponentsRegistry>
-        </StoreProvider>
+              </StoreProvider>
+            </div>
+            <Footer />
+          </ConfigProvider>
+        </StyledComponentsRegistry>
       </body>
     </html>
   )

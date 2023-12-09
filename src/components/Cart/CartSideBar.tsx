@@ -19,7 +19,6 @@ const CartSideBar: React.FC<DrawerProps> = ({ onClose, open }) => {
     let ListCart: ItemCart[] = [];
     let TotalCart: number = 0;
 
-
     Object.keys(stateCart.Carts).forEach((item) => {
         const index = parseInt(item);
         TotalCart += stateCart.Carts[index].quantity * stateCart.Carts[index].price;

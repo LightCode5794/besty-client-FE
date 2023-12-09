@@ -5,11 +5,14 @@ import { useAppSelector } from "@/store/hooks";
 import { CartItem } from "@/interfaces";
 import { selectCart } from "@/store/features/cart/cartSlice";
 import { RightOutlined } from '@ant-design/icons'; import StoreProvider from "@/app/StoreProvider";
+import { useState } from "react";
+import ModalConfirmOrder from "./ModalConfirmOrder";
 ;
 
 const ContentCheckout = () => {
-
     const stateCart = useAppSelector(selectCart)
+
+
     let ListCart: CartItem[] = [];
     let TotalCart: number = 0;
 
@@ -18,6 +21,12 @@ const ContentCheckout = () => {
         TotalCart += stateCart.Carts[index].quantity * stateCart.Carts[index].price;
         ListCart.push(stateCart.Carts[index]);
     });
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
         <>
@@ -90,9 +99,9 @@ const ContentCheckout = () => {
                                     <b>TẠM TÍNH</b>
                                     <b style={{ fontSize: 14 }}> {TotalCart} ₫</b>
                                 </Flex>
-                                <Button type='primary' block>Đặt hàng</Button>
+                                <Button type='primary' block onClick={showModal}>Đặt hàng</Button>
+                                <ModalConfirmOrder isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
                             </Space>
-
                         </div>
                     </Layout>
 

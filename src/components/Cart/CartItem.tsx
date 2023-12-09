@@ -15,7 +15,6 @@ import { CartItem as ItemCart } from '@/interfaces';
 const CartItem = ({ itemKey, item }: { itemKey: number, item: ItemCart }) => {
 
     const dispatch = useAppDispatch()
-
     return (
         <>
             <ConfigProvider
