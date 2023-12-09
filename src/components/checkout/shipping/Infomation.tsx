@@ -1,14 +1,10 @@
 'use client'
-import { fetchDistricts, fetchProvinces, fetchWards } from "@/api/ApiLocation";
+import { fetchDistricts, fetchProvinces, fetchWards } from "@/api/apiLocation";
 import { Button, Divider, Form, Input, Select, Typography } from "antd";
-
 import TextArea from "antd/es/input/TextArea";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 const { Title } = Typography;
-
-
-
 interface Province {
     code: string;
     name: string;
@@ -110,9 +106,6 @@ const Information = () => {
         setSelectedWard(value);
     };
 
-
-
-
     return (
         <>
             <Title level={5} style={{ padding: 20, fontWeight: 'bold', margin: 0 }}>Địa chỉ nhận hàng</Title>
@@ -205,7 +198,6 @@ const Information = () => {
         </>
 
     )
-
 }
 
 export default Information;
