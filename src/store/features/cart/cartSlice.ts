@@ -18,17 +18,6 @@ export const cartSlice = createSlice({
     initialState,
     reducers: {
         addCart: (state, action) => {
-
-            // if (state.numberCart == 0) {
-            //     let cart: CartItem = {
-            //         id: action.payload.id,
-            //         quantity: 1,
-            //         name: action.payload.name,
-            //         image: action.payload.thumbnail,
-            //         price: action.payload.price
-            //     }
-            //     state.Carts.push(cart);
-            // }
             let check = false;
             state.Carts.map((item, key) => {
                 if (item.id == action.payload.id &&
@@ -58,9 +47,6 @@ export const cartSlice = createSlice({
         increment: (state, action: PayloadAction<number>) => {
             state.numberCart++
             state.Carts[action.payload].quantity++;
-            // return {
-            //     ...state
-            // }
         },
 
         decrement: (state, action: PayloadAction<number>) => {
@@ -70,10 +56,6 @@ export const cartSlice = createSlice({
                 state.numberCart--;
                 state.Carts[action.payload].quantity--;
             }
-
-            // return {
-            //     ...state
-            // }
         },
 
         deleteCart: (state, action: PayloadAction<number>) => {
@@ -83,7 +65,6 @@ export const cartSlice = createSlice({
             })
             state.numberCart -= quantity_;
             state.Carts = newListCarts;
-
         }
 
     }

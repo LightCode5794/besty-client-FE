@@ -4,7 +4,7 @@ import CheckoutItem from "./CheckoutItem";
 import { useAppSelector } from "@/store/hooks";
 import { CartItem } from "@/interfaces";
 import { selectCart } from "@/store/features/cart/cartSlice";
-import { RightOutlined } from '@ant-design/icons'; import StoreProvider from "@/app/StoreProvider";
+import { RightOutlined } from '@ant-design/icons';
 import { useState } from "react";
 import ModalConfirmOrder from "./ModalConfirmOrder";
 ;

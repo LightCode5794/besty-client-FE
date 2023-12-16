@@ -1,6 +1,6 @@
 'use client'
 
-import { Layout, Carousel, Button, Image } from 'antd'
+import { Layout, Carousel, Button, Image, Flex } from 'antd'
 
 
 import { RightOutlined, LeftOutlined } from '@ant-design/icons';
@@ -103,26 +103,31 @@ const ProductCarousel = () => {
                             imgProduct?.map((product, index) => (
                                 <div key={index}>
                                     <div className={styles.productCauroselItem} >
-                                        <Link href={'/detailproduct'}>
-
+                                        <Link href={'/detailproduct'} >
                                             <Image src={product.uri} alt={product.id.toString()}
                                                 // object-fit={"cover"} loading={"lazy"}
                                                 width={'100%'}
-                                                height={311}
+                                                height={'290px'}
                                                 preview={false}
                                                 content=''
-
                                             />
+
                                         </Link>
+
+
                                         <div className={styles.productInfo}>
                                             <p style={{ fontSize: 14, fontWeight: 500 }}>{product.name}</p>
                                             <b>{product.price} ₫</b>
                                         </div>
+                                        <Flex>
 
+                                            <Link href={'/detailproduct'} >
+                                                <Button className={styles.btnViewProduct} block>
+                                                    XEM SẢN PHẨM
+                                                </Button>
+                                            </Link>
+                                        </Flex>
 
-                                        <Button className={styles.btnViewProduct} href={'/detailproduct'}>
-                                            <Link href={'/detailproduct'} style={{ width: '100%' }}>XEM SẢN PHẨM</Link>
-                                        </Button>
                                     </div>
                                 </div>
                             ))

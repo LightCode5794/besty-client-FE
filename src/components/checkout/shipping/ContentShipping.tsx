@@ -6,9 +6,6 @@ import CartInfo from "./CartInfo";
 const { Text, Title } = Typography;
 
 const ContentShipping = () => {
-
-
-
     return (
         <>
             <Flex justify={'center'} gap={20} style={{ minHeight: 500 }} >

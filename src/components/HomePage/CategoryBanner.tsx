@@ -12,24 +12,28 @@ const CategoryBanner = () => {
         <div className='categoryBanner' >
             <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} style={{ paddingTop: 24 }}>
                 <Col span={12} className="gutter-row" flex={1} >
-                    <div className={styles.categoryBannerItem} style={{ backgroundImage: `url(${banner1})` }}>
-                        <div className={styles.bannerOverLay}>
-                            <div className={styles.BannerItemContent}>
-                                <h4>ĐẦM</h4>
-                                <Link className={styles.ViewLink} href={'/man'} color='white'>Xem ngay</Link>
+                    <Link href={'/product'}>
+                        <div className={styles.categoryBannerItem} style={{ backgroundImage: `url(${banner1})` }}>
+                            <div className={styles.bannerOverLay}>
+                                <div className={styles.BannerItemContent}>
+                                    <h4>ĐẦM</h4>
+                                    <Link className={styles.ViewLink} href={'/man'} color='white'>Xem ngay</Link>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </Link>
                 </Col>
                 <Col span={12} className="gutter-row" flex={1}>
-                    <div className={styles.categoryBannerItem} style={{ backgroundImage: `url(${banner2})` }} >
-                        <div className={styles.bannerOverLay}>
-                            <div className={styles.BannerItemContent}>
-                                <h4>ÁO KHOÁC MÙA ĐÔNG</h4>
-                                <Link className={styles.ViewLink} href={'/man'} color='white'>Xem ngay</Link>
+                    <Link href={'/product'}>
+                        <div className={styles.categoryBannerItem} style={{ backgroundImage: `url(${banner2})` }} >
+                            <div className={styles.bannerOverLay}>
+                                <div className={styles.BannerItemContent}>
+                                    <h4>ÁO KHOÁC MÙA ĐÔNG</h4>
+                                    <Link className={styles.ViewLink} href={'/man'} color='white'>Xem ngay</Link>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </Link>
                 </Col>
             </Row>
         </div>

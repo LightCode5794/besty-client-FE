@@ -25,3 +25,13 @@ export type CartItem = {
     selectedColor: string,
     selectedSize: string,
 }
+export interface TemporaryBill {
+    district?: string;
+    email: string;
+    fullAddress: string;
+    fullName: string;
+    note?: string;
+    numberPhone: string;
+    province: string;
+    ward: string;
+}

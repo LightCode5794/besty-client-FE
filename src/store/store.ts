@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import cartReducer from './features/cart/cartSlice'
+import billReducer from './features/payment/billSlice'
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import { createPersistStorage } from './persistStorage';
@@ -7,12 +8,14 @@ import { createPersistStorage } from './persistStorage';
 const persistConfig = {
     timeout: 100,
     key: 'root',
-    storage: createPersistStorage()
+    storage: createPersistStorage(),
+    blacklist: ['bill']
 
 }
 const rootReducer = combineReducers({
     // counter: counterReducer,
-    cart: cartReducer
+    cart: cartReducer,
+    bill: billReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

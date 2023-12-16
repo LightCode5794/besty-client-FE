@@ -1,8 +1,11 @@
 'use client'
 import { fetchDistricts, fetchProvinces, fetchWards } from "@/api/apiLocation";
+import { TemporaryBill } from "@/interfaces";
+import { selectBill, setBill } from "@/store/features/payment/billSlice";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { Button, Divider, Form, Input, Select, Typography } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";;
 import { useEffect, useState } from "react";
 const { Title } = Typography;
 interface Province {
@@ -32,9 +35,6 @@ type FieldType = {
 
 };
 
-const onFinish = (values: any) => {
-    console.log('Success:', values);
-};
 
 const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
@@ -42,10 +42,22 @@ const onFinishFailed = (errorInfo: any) => {
 
 const Information = () => {
 
-    const router = useRouter();
-    function handleClickButton() {
-        // router.push('/detailproduct')
-    }
+    const router = useRouter()
+    const stateBill = useAppSelector(selectBill)
+    const dispatch = useAppDispatch()
+
+    const onFinish = (values: TemporaryBill) => {
+        //console.log('Success:', values);
+        const provinceName = provinces.find(province => province.code === selectedProvince)
+        const districtName = districts.find(district => district.code === selectedDistrict)
+        const wardName = wards.find(ward => ward.code === selectedWard)
+        values = { ...values, province: provinceName?.name || '', district: districtName?.name || '', ward: wardName?.name || '' }
+        // console.log(values)
+        dispatch(setBill(values))
+        router.push('/checkout/payment');
+
+    };
+
     const [form] = Form.useForm();
     const [provinces, setProvinces] = useState<Province[]>([]);
     const [districts, setDistricts] = useState<District[]>([]);
@@ -53,6 +65,7 @@ const Information = () => {
     const [selectedProvince, setSelectedProvince] = useState('');
     const [selectedDistrict, setSelectedDistrict] = useState('');
     const [selectedWard, setSelectedWard] = useState('');
+
 
     useEffect(() => {
         const fetchProvincesData = async () => {
@@ -70,7 +83,6 @@ const Information = () => {
 
     const handleProvinceChange = async (value: string) => {
 
-        console.log(value)
         setSelectedProvince(value);
         setSelectedDistrict('');
         setSelectedWard('');
@@ -110,11 +122,12 @@ const Information = () => {
         <>
             <Title level={5} style={{ padding: 20, fontWeight: 'bold', margin: 0 }}>Địa chỉ nhận hàng</Title>
             <Divider style={{ margin: 0 }} />
+
             <Form
                 form={form}
                 name="basic"
                 style={{ width: '100%', padding: 20 }}
-                initialValues={{ remember: true }}
+
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
@@ -122,6 +135,7 @@ const Information = () => {
                 <Form.Item<FieldType>
                     name="email"
                     rules={[{ required: true, message: 'Đây là trường bắt buộc' }]}
+                    initialValue={stateBill.email}
                 >
                     <Input placeholder="EMAIL" style={{ width: '100%' }} type='email' />
                 </Form.Item>
@@ -129,6 +143,7 @@ const Information = () => {
                 <Form.Item<FieldType>
                     name="numberPhone"
                     rules={[{ required: true, message: 'Đây là trường bắt buộc' }]}
+                    initialValue={stateBill.numberPhone}
                 >
                     <Input type='number' placeholder='SỐ ĐIỆN THOẠI' />
                 </Form.Item>
@@ -136,6 +151,7 @@ const Information = () => {
                 <Form.Item<FieldType>
                     name="fullName"
                     rules={[{ required: true, message: 'Đây là trường bắt buộc' }]}
+                    initialValue={stateBill.fullName}
                 >
                     <Input placeholder="HỌ VÀ TÊN" />
                 </Form.Item>
@@ -158,7 +174,7 @@ const Information = () => {
                 >
                     <Select placeholder='QUẬN/HUYỆN' value={selectedDistrict} onChange={handleDistrictChange}>
                         {districts.length && districts.map((district, index) => (
-                            <Select.Option value={district.code} key={index}>{district.name}</Select.Option>
+                            <Select.Option value={district.code} key={index} >{district.name}</Select.Option>
                         )
                         )}
                     </Select>
@@ -179,18 +195,20 @@ const Information = () => {
                 <Form.Item<FieldType>
                     name="fullAddress"
                     rules={[{ required: true, message: 'Đây là trường bắt buộc' }]}
+                    initialValue={stateBill.fullAddress}
                 >
                     <Input placeholder="ĐỊA CHỈ CỤ THỂ" />
                 </Form.Item>
                 <Form.Item<FieldType>
                     name="note"
                     rules={[{ required: false }]}
+                    initialValue={stateBill.note}
                 >
                     <TextArea style={{ borderColor: 'black', borderRadius: 0 }} placeholder="GHI CHÚ" rows={2} />
                 </Form.Item>
 
                 <Form.Item >
-                    <Button type="primary" onClick={() => handleClickButton()}>
+                    <Button type="primary" htmlType='submit'  >
                         Tiếp tục
                     </Button>
                 </Form.Item>

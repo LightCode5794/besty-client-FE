@@ -1,6 +1,5 @@
+'use client'
 import ContentShipping from "@/components/checkout/shipping/ContentShipping";
-
-
 const ShippingPage = function ShippingPage() {
 
     return (
