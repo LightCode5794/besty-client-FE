@@ -13,7 +13,7 @@ const PaymentNotification = () => {
                     <Button type="primary" key="console">
                         Xem đơn hàng của bạn
                     </Button>,
-                    <Link href={"/"}>
+                    <Link href={"/"} key={'continue'}>
                         <Button>Tiếp tục mua hàng</Button>,
                     </Link>
 
