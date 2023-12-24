@@ -4,19 +4,23 @@ import billReducer from './features/payment/billSlice'
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import { createPersistStorage } from './persistStorage';
+import pickedColorSlice from './features/slider/pickedColorSlice';
 
 const persistConfig = {
     timeout: 100,
     key: 'root',
     storage: createPersistStorage(),
-    blacklist: ['bill']
+    blacklist: ['bill', 'pickedColor']
 
 }
 const rootReducer = combineReducers({
     // counter: counterReducer,
     cart: cartReducer,
-    bill: billReducer
+    bill: billReducer,
+    pickedColor: pickedColorSlice,
+
 })
+
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 

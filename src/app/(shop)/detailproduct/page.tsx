@@ -35,10 +35,10 @@ const ViewProductPage = function ViewProductPage() {
             <div className='content-layout-container'>
                 <Row gutter={50}>
                     <Col span={16} style={{ paddingLeft: '5%' }}>
-                        <ProductCarousel images={product.images} />
+                        {/* <ProductCarousel images={product.images} /> */}
                     </Col>
                     <Col span={8}>
-                        <Information product={product} />
+                        {/* <Information product={product} /> */}
                     </Col>
                 </Row>
                 <div style={{ paddingTop: '48px' }}>
@@ -47,7 +47,7 @@ const ViewProductPage = function ViewProductPage() {
                 </div>
                 <div>
                     <MyDivider title='SẢN PHẨM TƯƠNG ĐỒNG' />
-                    <CarouselTest />
+                    {/* <CarouselTest /> */}
                 </div>
             </div>
         </>

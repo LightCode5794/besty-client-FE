@@ -12,25 +12,19 @@ interface RadioBtnGroupProps {
 }
 // const selectedBtnArr : number[] = [];
 
-const  BtnGroupSelectMulti: React.FC<RadioBtnGroupProps> = ({ content, isColorContent }) => {
-    const [ selectedBtnArr, setSelectedBtnArr] = useState<number[]>([]);
+const BtnGroupSelectMulti: React.FC<RadioBtnGroupProps> = ({ content, isColorContent }) => {
+    const [selectedBtnArr, setSelectedBtnArr] = useState<number[]>([]);
 
     function handleClickBtn(index: number) {
         //setActiveButtonIndex(index);
-       if(selectedBtnArr.includes(index)) {
-           const newArr : number[] = selectedBtnArr.filter(e => e != index);
-           setSelectedBtnArr(newArr);
-       }
-       else {
-        setSelectedBtnArr((prevSelectedBtnArr) => [...prevSelectedBtnArr, index]);
-       }
+        if (selectedBtnArr.includes(index)) {
+            const newArr: number[] = selectedBtnArr.filter(e => e != index);
+            setSelectedBtnArr(newArr);
+        }
+        else {
+            setSelectedBtnArr((prevSelectedBtnArr) => [...prevSelectedBtnArr, index]);
+        }
     }
-
-    // useEffect(() => {
-    //     btnRefs.current = Array(content.length)
-    //         .fill(0)
-    //         .map((_, index) => React.createRef());
-    // }, [content.length]);
 
     return (
         <>
@@ -62,13 +56,13 @@ const  BtnGroupSelectMulti: React.FC<RadioBtnGroupProps> = ({ content, isColorCo
                             </>
                             :
                             <>
-                                {content.map((text, index) => (
+                               {content.map((text, index) => (
                                     <Button
                                         shape='circle'
                                         key={index}
                                         onClick={() => handleClickBtn(index)}
                                         style={{
-                                            backgroundColor: `${text}`,
+                                             backgroundColor: `${text}`,
                                             backgroundClip: 'content-box',
                                             padding: 2,
                                             borderColor: selectedBtnArr.includes(index) ? 'black' : 'white',
@@ -84,4 +78,4 @@ const  BtnGroupSelectMulti: React.FC<RadioBtnGroupProps> = ({ content, isColorCo
     );
 };
 
-export default  BtnGroupSelectMulti;
+export default BtnGroupSelectMulti;

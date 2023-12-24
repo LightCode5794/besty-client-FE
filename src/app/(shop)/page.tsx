@@ -9,9 +9,25 @@ import HomeSlider from '@/components/HomePage/Slider';
 import ProductCarousel from '@/components/HomePage/ProductCaurosel';
 import CategoryBanner from '@/components/HomePage/CategoryBanner';
 import MyDivider from '@/components/common/Divider';
+import { basicFetch } from '@/api/fetchFuntions';
+import { PRODUCT_ALL_URL } from '../../../config';
+import { ProductBasic } from '@/interfaces';
 
-const HomePage = function Home() {
 
+
+
+const getHomePageData = async () => {
+  const productCarousels = await basicFetch<ProductBasic[]>(PRODUCT_ALL_URL);
+  
+  return {
+    productCarousels
+  }
+
+}
+const HomePage = async function Home() {
+
+  const {productCarousels} = await getHomePageData();
+ 
   return (
     <>
 
@@ -19,7 +35,7 @@ const HomePage = function Home() {
         <HomeSlider />
         <div className='content-layout-container'>
           <MyDivider title='HÀNG MỚI VỀ' />
-          <ProductCarousel />
+          <ProductCarousel products={productCarousels}/> 
           <MyDivider title='' />
           <CategoryBanner />
         </div>

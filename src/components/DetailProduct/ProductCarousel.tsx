@@ -1,16 +1,21 @@
 'use client'
 
+import { ImageCarousel } from '@/interfaces';
+import { selectPickedColor } from '@/store/features/slider/pickedColorSlice';
+import { useAppSelector } from '@/store/hooks';
 import { Layout, Carousel, Button, Row, Col, Space, Card, Flex, Image } from 'antd'
 
 import { CarouselRef } from 'antd/es/carousel';
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 interface ProductCarouselProps {
-    images: string[];
+    images: ImageCarousel[];
 }
 
 
 const ProductCarousel = ({ images }: ProductCarouselProps) => {
+
+    const pickedColor = useAppSelector(selectPickedColor)
 
     const ref = useRef<CarouselRef>(null);
 
@@ -18,35 +23,48 @@ const ProductCarousel = ({ images }: ProductCarouselProps) => {
         ref.current?.goTo(slide, false);
     };
 
+
+
+    const findIndexSlideColor = (color: string) => {
+        const indexSlide = images.findIndex(image => image.color === color);
+        return indexSlide;
+    }
+    useEffect(() => {
+        const index = findIndexSlideColor(pickedColor);
+        goToSlide(index)
+    }, [pickedColor])
+
+
     return (
         <div className='p-relative'>
-            <Row gutter={20} >
-                <Col span={4} >
+            <Row gutter={[50, 10]} justify={'end'}>
+                <Col span={6} style={{ maxHeight: 450, overflow: 'auto' }}>
                     <Flex justify='center'>
                         <Space direction='vertical' align='end' >
                             {
-                                images?.map((product, index) => (
-                                    <div key={index} onClick={() => goToSlide(index)}>
-                                        <Image src={images[index]} alt='product 1' width={'100%'} preview={false} />
+                                images?.map((i, index) => (
+                                    <div key={index} onClick={() => goToSlide(index)} style={{ width: '100%' }}>
+                                        <Image src={i.url} alt='product 1' preview={false} />
                                     </div>))
                             }
                         </Space>
                     </Flex>
 
                 </Col>
-                <Col span={20}>
+                <Col span={16}>
                     <Carousel
                         // dotPosition='left'
-
                         dots={false}
                         infinite
                         draggable
                         ref={ref}
+                        style={{ overflow: 'hidden' }}
+                        slidesToShow={1}
                     >
                         {
-                            images?.map((product, index) => (
+                            images?.map((i, index) => (
                                 <div key={index} >
-                                    <Image src={images[index]} alt='product 1' width={'100%'} style={{ minHeight: 600 }} preview={false} />
+                                    <Image src={i.url} alt='product 1' width={'100%'} preview={false} />
                                 </div>))
                         }
                     </Carousel>

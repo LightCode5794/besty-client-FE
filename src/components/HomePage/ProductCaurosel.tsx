@@ -14,6 +14,8 @@ import product4 from '../../../public/ImagesGridCarousel/product_4.jpg';
 import { CarouselRef } from 'antd/es/carousel';
 import React, { useRef } from "react";
 import Link from 'next/link';
+import { ProductBasic } from '@/interfaces';
+import { customCurVND } from '@/utils/formatterCurrency';
 
 const imgProduct = [
     {
@@ -71,7 +73,12 @@ const styleBtnAr = {
 
 }
 
-const ProductCarousel = () => {
+interface ProductCarouselProps {
+    products: ProductBasic[]
+}
+
+const ProductCarousel = ({ products }: ProductCarouselProps) => {
+
 
     const ref = useRef<CarouselRef>(null);
 
@@ -87,27 +94,25 @@ const ProductCarousel = () => {
     return (
         <div className='p-relative'>
             {
-                imgProduct.length > 0 ?
+                products && products.length > 0 ?
                     <Carousel ref={ref}
                         // draggable
                         // swipeToSlide={true}
                         dots={false}
-                        slidesToShow={imgProduct.length <= 5 ? imgProduct.length : 5}
+                        slidesToShow={products.length <= 5 ? products.length : 5}
                         slidesToScroll={1}
                         // lazyLoad={"ondemand"}
                         infinite
-
-
                         initialSlide={0}>
                         {
-                            imgProduct?.map((product, index) => (
+                            products?.map((product, index) => (
                                 <div key={index}>
                                     <div className={styles.productCauroselItem} >
-                                        <Link href={'/detailproduct'} >
-                                            <Image src={product.uri} alt={product.id.toString()}
+                                        <Link href={`/product/${product.id.toString()}`} >
+                                            <Image src={product.thumbnail} alt={product.id.toString()}
                                                 // object-fit={"cover"} loading={"lazy"}
-                                                width={'100%'}
-                                                height={'290px'}
+                                                width={'240px'}
+                                                height={'300px'}
                                                 preview={false}
                                                 content=''
                                             />
@@ -117,11 +122,11 @@ const ProductCarousel = () => {
 
                                         <div className={styles.productInfo}>
                                             <p style={{ fontSize: 14, fontWeight: 500 }}>{product.name}</p>
-                                            <b>{product.price} ₫</b>
+                                            <b>{customCurVND(product.price)}</b>
                                         </div>
                                         <Flex>
 
-                                            <Link href={'/detailproduct'} >
+                                            <Link href={`/product/${product.id}`} >
                                                 <Button className={styles.btnViewProduct} block>
                                                     XEM SẢN PHẨM
                                                 </Button>
@@ -137,10 +142,14 @@ const ProductCarousel = () => {
                     :
                     <h2>No Product</h2>
             }
-            <div className={styles.btnCourosel}>
-                <LeftOutlined style={styleAr} onClick={() => preSlide()} />
-                <RightOutlined style={styleAr} onClick={() => nextSlide()} />
-            </div>
+            {
+                products && products.length > 4 &&
+                <div className={styles.btnCourosel}>
+                    <LeftOutlined style={styleAr} onClick={() => preSlide()} />
+                    <RightOutlined style={styleAr} onClick={() => nextSlide()} />
+                </div>
+            }
+
         </div>
     )
 }

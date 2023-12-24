@@ -1,0 +1,12 @@
+export const basicFetch = async <returnType>(endpoint: string): Promise<returnType> => {
+
+   const response = await fetch(endpoint, {
+      next: { revalidate: 10 },
+   });
+   if (!response.ok)
+   {
+      throw new Error('Error');
+   } 
+   const data = await response.json();
+   return data.data;
+}

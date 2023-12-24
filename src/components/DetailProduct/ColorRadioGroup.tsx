@@ -1,34 +1,80 @@
 'use client'
-import React, { FC, useState } from 'react';
-import { Card, Flex, Radio, RadioChangeEvent, Space } from 'antd';
+import React, { FC, useEffect, useState } from 'react';
+import { Button, Card, ConfigProvider, Flex, Form, Radio, RadioChangeEvent, Space } from 'antd';
+import { Color } from './interface';
+import { useAppDispatch } from '@/store/hooks';
+import { setPickedColor } from '@/store/features/slider/pickedColorSlice';
 
-interface ColorRadioGroupProps {
-    colors: string[],
-    setSelectedColor: React.Dispatch<React.SetStateAction<string>>;
+
+
+
+const theme = {
+    components: {
+        Radio: {
+            colorBorder: '#D9D9D9'
+        }
+    }
 }
 
-const ColorRadioGroup: React.FC<ColorRadioGroupProps> = ({ colors, setSelectedColor }) => {
+interface ColorRadioGroupProps {
+    colors: Color[],
+    selectedColor: Color | undefined,
+    //setSelectedColor: React.Dispatch<React.SetStateAction<Color | undefined>>;
+    handleSelectColor: (color: Color | undefined) => void
 
-    const onChange = (e: RadioChangeEvent) => {
-        setSelectedColor(e.target.value)
-    };
+}
+const ColorRadioGroup: React.FC<ColorRadioGroupProps> = ({ colors, selectedColor, handleSelectColor }) => {
 
+
+    const dispatch = useAppDispatch()
+
+    const handleClickBtn = (color: Color) => {
+
+        handleSelectColor(color?.id == selectedColor?.id ? undefined : color)
+        dispatch(setPickedColor(color.id == selectedColor?.id ? '' : color.hex))
+
+    }
     return (
-        <Radio.Group
-            name="radiogroup"
-            defaultValue='red'
-            onChange={onChange}
-        >
-            <Space size={20}>
-                {colors.map((color, index) => (
-                    <Flex justify='center' key={index}>
-                        <Radio value={color} key={index} />
-                        <Card style={{ width: 30, backgroundColor: `${color}`, height: 30, borderRadius: 50 }} />
-                    </Flex>
-                ))}
-            </Space>
+        <>
+            <ConfigProvider theme={theme}>
+                <Form.Item
+                    name='color'
+                    label='Màu sắc'
+                    required={false}
+                    rules={[{ required: true, message: 'Bạn chưa chọn màu' }]}
+                >
+                    <Radio.Group
+                        name="colorsGroup"
 
-        </Radio.Group>
+                    // value={selectedColor?.id}
+                    >
+                        <Space>
+                            {colors?.map((color, index) => {
+                                return (
+                                    <Radio.Button
+                                        value={color.id}
+                                        key={index}
+                                        disabled={color.isAvailable ? false : true}
+                                        style={{
+                                            borderRadius: 50,
+                                            backgroundColor: `${color.hex}`,
+                                            width: 30,
+                                            height: 30,
+                                            backgroundClip: 'content-box',
+                                            padding: 3,
+                                            opacity: color.isAvailable ? 1 : 0.3
+                                        }
+                                        }
+                                        onClick={() => handleClickBtn(color)}
+                                    />
+
+                                )
+                            })}
+                        </Space>
+                    </Radio.Group>
+                </Form.Item>
+            </ConfigProvider>
+        </>
     );
 };
 

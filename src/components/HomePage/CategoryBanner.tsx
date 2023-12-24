@@ -17,7 +17,7 @@ const CategoryBanner = () => {
                             <div className={styles.bannerOverLay}>
                                 <div className={styles.BannerItemContent}>
                                     <h4>ĐẦM</h4>
-                                    <Link className={styles.ViewLink} href={'/man'} color='white'>Xem ngay</Link>
+                                    {/* <Link className={styles.ViewLink} href={'/man'} color='white'>Xem ngay</Link> */}
                                 </div>
                             </div>
                         </div>
@@ -29,7 +29,7 @@ const CategoryBanner = () => {
                             <div className={styles.bannerOverLay}>
                                 <div className={styles.BannerItemContent}>
                                     <h4>ÁO KHOÁC MÙA ĐÔNG</h4>
-                                    <Link className={styles.ViewLink} href={'/man'} color='white'>Xem ngay</Link>
+                                    {/* <Link className={styles.ViewLink} href={'/man'} color='white'>Xem ngay</Link> */}
                                 </div>
                             </div>
                         </div>
