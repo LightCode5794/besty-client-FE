@@ -15,7 +15,7 @@ interface ProductCarouselProps {
 
 const ProductCarousel = ({ images }: ProductCarouselProps) => {
 
-    const pickedColor = useAppSelector(selectPickedColor)
+    const pickedColorId = useAppSelector(selectPickedColor)
 
     const ref = useRef<CarouselRef>(null);
 
@@ -25,14 +25,14 @@ const ProductCarousel = ({ images }: ProductCarouselProps) => {
 
 
 
-    const findIndexSlideColor = (color: string) => {
-        const indexSlide = images.findIndex(image => image.color === color);
+    const findIndexSlideColor = (colorId: number) => {
+        const indexSlide = images.findIndex(image => image.colorId === colorId);
         return indexSlide;
     }
     useEffect(() => {
-        const index = findIndexSlideColor(pickedColor);
+        const index = findIndexSlideColor(pickedColorId);
         goToSlide(index)
-    }, [pickedColor])
+    }, [pickedColorId])
 
 
     return (

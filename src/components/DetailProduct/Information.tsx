@@ -2,13 +2,13 @@
 
 import React, { use, useEffect, useState } from 'react';
 import type { CollapseProps } from 'antd';
-import { Button, Flex, Form, Space } from 'antd';
+import { Button, Flex, Form, Space, message } from 'antd';
 import SizeRadioGroup from './SizeRadioGroup';
 import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 import ReadMore from './ReadMore';
 import ColorRadioGroup from './ColorRadioGroup';
 import { useAppSelector, useAppDispatch } from '@/store/hooks'
-import { addCart, increment } from '../../store/features/cart/cartSlice'
+import { addCart, increment, selectCart } from '../../store/features/cart/cartSlice'
 import { Product, Variation } from '@/interfaces';
 import { customCurVND } from '@/utils/formatterCurrency';
 import { Color, ProductInfo, Size, SizeBtn } from './interface';
@@ -27,6 +27,8 @@ interface ChildComponentProps {
 
 const Information = ({ product }: ChildComponentProps) => {
   const [form] = Form.useForm();
+  const [messageApi, contextHolder] = message.useMessage();
+  const stateCart = useAppSelector(selectCart)
   const variations = product.variations;
   const dispatch = useAppDispatch()
   const [liked, setLike] = useState(product.liked);
@@ -110,8 +112,8 @@ const Information = ({ product }: ChildComponentProps) => {
 
     if (size) {
 
-      const isColorHaveSize = (color: string) => {
-        const temp = variations.find(c => c.color == color)
+      const isColorHaveSize = (colorId: number) => {
+        const temp = variations.find(c => c.id == colorId)
 
         if (!temp) {
           return false;
@@ -120,7 +122,7 @@ const Information = ({ product }: ChildComponentProps) => {
         return res;
       };
 
-      const newColorState: Color[] = colors.map(color => ({ ...color, isAvailable: isColorHaveSize(color.hex) }))
+      const newColorState: Color[] = colors.map(color => ({ ...color, isAvailable: isColorHaveSize(color.id) }))
       setColorsList(newColorState)
     }
     else {
@@ -140,12 +142,57 @@ const Information = ({ product }: ChildComponentProps) => {
       //remove from data favorite
     }
   }
-  function onClickAddCart() {
-    dispatch(addCart({ ...product, selectedColor, selectedSize }))
+
+  const addCartError = () => {
+    messageApi.open({
+      type: 'error',
+      content: 'Đã đạt đến số lượng tối đa của sản phẩm trong cửa hàng',
+    });
+  };
+  const addCartSuccess = () => {
+    messageApi.open({
+      type: 'success',
+      content: 'Đã thêm sản phẩm vào giỏ hàng',
+    });
+  }
+
+  const checkInventory = (colorId: number, size?: string) => {
+    const cart = stateCart.Carts.find(c => c.colorId == colorId && c.size == size);
+    if (!cart) {
+      return true;
+    }
+    if (cart.quantity >= cart.inventory) {
+      addCartError();
+      return false;
+    }
+    return true;
+  }
+
+  function handleAddCart(colorId: number, size: string) {
+    const color = variations.find(v => v.id == colorId);
+    const sizePicked = color?.sizesColor.find(s => s.size == size);
+    if (checkInventory(colorId, sizePicked?.size)) {
+      dispatch(addCart(
+        {
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          thumbnail: color?.image ?? '',
+          colorId: colorId,
+          colorHex: color?.color ?? '',
+          size: size,
+          inventory: sizePicked?.inventory ?? 0,
+          quantity: 1
+        }
+      ))
+      addCartSuccess();
+    }
+
   }
 
   return (
     <>
+      {contextHolder}
       <Space direction='vertical' style={{ width: '80%' }}>
         <Flex align='center' justify='space-between'>
           <h2>{product.name}</h2>
@@ -162,7 +209,7 @@ const Information = ({ product }: ChildComponentProps) => {
         <Form
           form={form}
           name='basic'
-          onFinish={(values: any) => { console.log(values) }}
+          onFinish={(values: { color: number, size: string }) => handleAddCart(values.color, values.size)}
           layout='vertical'
 
         >
@@ -177,7 +224,7 @@ const Information = ({ product }: ChildComponentProps) => {
             >Thêm vào giỏ hàng</Button>
           </Form.Item>
         </Form>
-        
+
         <div style={{ marginTop: 32 }}>
           <ReadMore description={product.description} />
         </div>

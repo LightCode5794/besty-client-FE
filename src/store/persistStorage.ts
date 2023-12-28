@@ -21,3 +21,24 @@ export function createPersistStorage(): WebStorage {
 
     return createWebStorage('local');
 }
+
+export function createPersistSessionStorage(): WebStorage {
+    const isServer = typeof window === 'undefined';
+
+    // Returns noop (dummy) storage.
+    if (isServer) {
+        return {
+            getItem() {
+                return Promise.resolve(null);
+            },
+            setItem() {
+                return Promise.resolve();
+            },
+            removeItem() {
+                return Promise.resolve();
+            },
+        };
+    }
+
+    return createWebStorage('session');
+}

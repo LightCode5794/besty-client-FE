@@ -12,6 +12,7 @@ import { useAppSelector } from "@/store/hooks";
 import { selectCart, increment, decrement } from "@/store/features/cart/cartSlice";
 import { CartItem as ItemCart } from '@/interfaces';
 import Link from "next/link";
+import { customCurVND } from "@/utils/formatterCurrency";
 
 const CartSideBar: React.FC<DrawerProps> = ({ onClose, open }) => {
 
@@ -44,7 +45,7 @@ const CartSideBar: React.FC<DrawerProps> = ({ onClose, open }) => {
                                 <Flex justify='end'>
                                     <Space align='end' >
                                         <label className="label-title-info" >Tổng</label>
-                                        <p style={{ fontWeight: "bold" }}>{TotalCart} ₫</p>
+                                        <p style={{ fontWeight: "bold" }}>{customCurVND(TotalCart)}</p>
                                     </Space>
                                 </Flex>
                                 <Link href={`/checkout/cart`}>

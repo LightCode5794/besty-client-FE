@@ -4,6 +4,7 @@ import { TemporaryBill } from "@/interfaces";
 import { selectBill, setBill } from "@/store/features/payment/billSlice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { Button, Divider, Form, Input, Select, Typography } from "antd";
+import Ribbon from "antd/es/badge/Ribbon";
 import TextArea from "antd/es/input/TextArea";
 import { useRouter } from "next/navigation";;
 import { useEffect, useState } from "react";
@@ -208,7 +209,7 @@ const Information = () => {
                 </Form.Item>
 
                 <Form.Item >
-                    <Button type="primary" htmlType='submit'  >
+                    <Button type="primary" htmlType='submit'  style={{float: "right"}}>
                         Tiếp tục
                     </Button>
                 </Form.Item>

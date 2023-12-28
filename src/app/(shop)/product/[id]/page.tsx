@@ -22,7 +22,7 @@ import { useState } from 'react';
 
 // Return a list of `params` to populate the [slug] dynamic segment
 export async function generateStaticParams() {
-    const products = await basicFetch<ProductBasic[]>(PRODUCT_ALL_URL);
+    const products = await basicFetch<ProductDetail[]>(PRODUCT_ALL_URL);
 
     return products.map((p) => ({
         id: p.id.toString(),
@@ -33,10 +33,16 @@ export async function generateStaticParams() {
 
 const getProductData = async (id: string) => {
     const productByIdEndpoint = productUrl(id);
-    const product = await basicFetch<ProductDetail>(productByIdEndpoint);
-    return {
-        product
+    try {
+        const product = await basicFetch<ProductDetail>(productByIdEndpoint);
+        return {
+            product
+        }
     }
+    catch (err) {
+        notFound()
+    }
+
 
 }
 
@@ -48,7 +54,7 @@ const productDetail = async function productDetail({ params }: { params: { id: s
         notFound()
     }
     const productInfo = {
-        id: product.id.toString(),
+        id: product.id,
         name: product.name,
         liked: false,
         variations: product.variations,
@@ -58,15 +64,15 @@ const productDetail = async function productDetail({ params }: { params: { id: s
     }
 
     function mapImagesCarousel() {
-        const imagesDescription: ImageCarousel[] = product.images.map(image => ({ url: image, color: '' }))
-        const imagesColors: ImageCarousel[] = product.variations.map(v => ({ url: v.image, color: v.color }))
-        return [...imagesDescription, ...imagesColors]
+        const thumbnail: ImageCarousel = { url: product.thumbnail, colorId: 0 };
+        const imagesDescription: ImageCarousel[] = product.images.map(image => ({ url: image, colorId: 0 }))
+        const imagesColors: ImageCarousel[] = product.variations.map(v => ({ url: v.image, colorId: v.id }))
+        return [thumbnail, ...imagesDescription, ...imagesColors]
     }
-   
-   
+
+
 
     const imagesCarousel = mapImagesCarousel();
-    let indexSlide = 0;
 
     return (
         <>

@@ -6,6 +6,7 @@ import LeftMenu from "./LeftMenu";
 import RightMenu from "./RightMenu";
 import { MenuOutlined } from "@ant-design/icons";
 import '@/styles/NavBar.scss'
+import Link from "next/link";
 
 const MyNavbar = () => {
   // const router = useRouter();
@@ -37,7 +38,8 @@ const MyNavbar = () => {
         <Layout>
           <Layout.Header className="nav-header">
             <div className="logo">
-              <h1 className="brand-font" style={{ fontSize: 30 }}>BESTY</h1>
+              <Link href={"/"}><h1 className="brand-font" style={{ fontSize: 30 }}>BESTY</h1></Link>
+
             </div>
             <div className="navbar-menu">
               <div className="leftMenu">

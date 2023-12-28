@@ -1,7 +1,7 @@
 import { Variation } from "@/interfaces";
 
 export type ProductInfo = {
-    id: string,
+    id: number,
     name: string,
     liked: boolean,
     variations: Variation[],

@@ -1,7 +1,7 @@
 import { Product, CartItem } from '@/interfaces';
 import { RootState } from '@/store/store'
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { access } from 'fs';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 
 interface CartState {
     numberCart: number;
@@ -17,36 +17,49 @@ export const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        addCart: (state, action) => {
+        addCart: (state, action: PayloadAction<CartItem>) => {
             let check = false;
+            let isInventory = true;
             state.Carts.map((item, key) => {
                 if (item.id == action.payload.id &&
-                    item.selectedSize == action.payload.selectedSize &&
-                    item.selectedColor == action.payload.selectedColor
+                    item.size == action.payload.size &&
+                    item.colorId == action.payload.colorId
                 ) {
-                    state.Carts[key].quantity++;
+
+                    const cart = state.Carts[key]
+                    if (cart.quantity < cart.inventory) {
+                        state.Carts[key].quantity++;
+                    }
+                    else {
+                        isInventory = false;
+                    }
+
                     check = true;
                 }
             });
-            if (!check) {
 
+            if (!check) {
                 let _cart: CartItem = {
-                    id: action.payload.id,
-                    quantity: 1,
-                    name: action.payload.name,
-                    image: action.payload.thumbnail,
-                    price: action.payload.price,
-                    selectedColor: action.payload.selectedColor,
-                    selectedSize: action.payload.selectedSize
+                    ...action.payload
                 }
+
                 state.Carts.push(_cart);
             }
-            state.numberCart++
+
+            if (isInventory) {
+                state.numberCart++
+            }
+
 
         },
         increment: (state, action: PayloadAction<number>) => {
-            state.numberCart++
-            state.Carts[action.payload].quantity++;
+            const itemKey = action.payload
+            const curQuantity = state.Carts[itemKey].quantity;
+            if (state.Carts[itemKey].inventory > curQuantity) {
+                state.numberCart++
+                state.Carts[itemKey].quantity++;
+            }
+
         },
 
         decrement: (state, action: PayloadAction<number>) => {
@@ -65,7 +78,8 @@ export const cartSlice = createSlice({
             })
             state.numberCart -= quantity_;
             state.Carts = newListCarts;
-        }
+        },
+        clearCart: () => initialState
 
     }
 })
@@ -74,6 +88,6 @@ export const cartSlice = createSlice({
 export const selectCart = (state: RootState) => state.cart
 export const selectNumberCart = (state: RootState) => state.cart.numberCart
 
-export const { addCart, increment, decrement, deleteCart } = cartSlice.actions
+export const { addCart, increment, decrement, deleteCart, clearCart} = cartSlice.actions
 
 export default cartSlice.reducer

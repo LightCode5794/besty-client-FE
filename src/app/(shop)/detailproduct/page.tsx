@@ -1,19 +1,13 @@
 
 import {
-    Button,
+ 
     Row,
     Col,
-    Layout,
-    Flex,
-    Space,
-
+  
 } from 'antd';
-import { useRouter } from 'next/navigation';
-import ProductCarousel from '@/components/DetailProduct/ProductCarousel';
-import CarouselTest from '@/components/HomePage/ProductCaurosel';
+
 import MyDivider from '@/components/common/Divider';
 import ProductComment from '@/components/DetailProduct/ProductComment';
-import Information from '@/components/DetailProduct/Information';
 import { Product } from '@/interfaces';
 
 

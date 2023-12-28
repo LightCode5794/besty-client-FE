@@ -4,14 +4,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { access, stat } from 'fs';
 
 const initialState = {
-    color: '' ,
+    color: 0 ,
 };
 
 export const pickedColorSlice = createSlice({
     name: 'pickedColor',
     initialState,
     reducers: {
-        setPickedColor: (state, action: PayloadAction<string>) => {
+        setPickedColor: (state, action: PayloadAction<number>) => {
             state.color = action.payload
            
         },

@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Col, Drawer, Row, Space, Image, Flex, Select, InputNumber, ConfigProvider, Card } from "antd";
+import { Button, Col, Drawer, Row, Space, Image, Flex, Select, InputNumber, ConfigProvider, Card, message } from "antd";
 import React, { useState } from "react";
 
 
@@ -8,13 +8,35 @@ import { DrawerProps } from "antd";
 import { CloseOutlined, MinusSquareOutlined, PlusSquareOutlined } from '@ant-design/icons';;
 import '@/styles/Cart/CartItem.scss'
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { increment, decrement, deleteCart } from "@/store/features/cart/cartSlice";
+import { increment, decrement, deleteCart, selectCart } from "@/store/features/cart/cartSlice";
 import { CartItem as ItemCart } from '@/interfaces';
+import { customCurVND } from "@/utils/formatterCurrency";
 
 
 const CartItem = ({ itemKey, item }: { itemKey: number, item: ItemCart }) => {
 
+    const [messageApi, contextHolder] = message.useMessage();
+    const stateCart = useAppSelector(selectCart)
     const dispatch = useAppDispatch()
+
+    const incrementError = () => {
+        messageApi.open({
+            type: 'error',
+            content: 'Đã đạt đến số lượng tối đa của sản phẩm trong cửa hàng',
+        });
+    };
+    const handleIncrement = () => {
+        const cart = stateCart.Carts[itemKey];
+        const curQuantity = cart.quantity
+        if (curQuantity >= cart.inventory) {
+            incrementError();
+            return;
+        }
+        dispatch(increment(itemKey))
+    }
+    const handleDecrement = () => {
+        dispatch(decrement(itemKey))
+    }
     return (
         <>
             <ConfigProvider
@@ -30,10 +52,11 @@ const CartItem = ({ itemKey, item }: { itemKey: number, item: ItemCart }) => {
                     },
                 }}
             >
+                {contextHolder}
                 <Row align={'middle'} justify={'space-between'}>
                     <Col span={6}>
                         <div style={{ padding: 4 }}>
-                            <Image width={'100%'} src={item.image}></Image>
+                            <Image width={'100%'} src={item.thumbnail}></Image>
                         </div>
 
                     </Col>
@@ -42,7 +65,7 @@ const CartItem = ({ itemKey, item }: { itemKey: number, item: ItemCart }) => {
                             <Flex justify='space-between' style={{ width: '100%', paddingBottom: 16 }} align='center'>
                                 <div>
                                     <p style={{ fontWeight: 'bold' }}>{item.name}</p>
-                                    <div style={{ width: 15, background: `${item.selectedColor}`, height: 15, borderRadius: 50 }} > </div>
+                                    <div style={{ width: 15, background: `${item.colorHex}`, height: 15, borderRadius: 50 }} > </div>
                                 </div>
                                 <Button icon={<CloseOutlined />} style={{ border: 'none' }} onClick={() => dispatch(deleteCart(itemKey))} />
                             </Flex>
@@ -51,18 +74,7 @@ const CartItem = ({ itemKey, item }: { itemKey: number, item: ItemCart }) => {
                                 <Flex justify="center" gap={16} >
                                     <Flex vertical justify='start' align='start'>
                                         <label className="label-title-info" >Kích cỡ</label>
-                                        <label>{item.selectedSize}</label>
-                                        {/* <Select
-                                            bordered={false}
-                                            defaultValue={item.sizes[0]}
-                                            style={{ width: 90 }}
-                                            options={
-                                                item.sizes.map((size) => {
-                                                    return { value: size, label: size }
-                                                })
-                                            }
-
-                                        /> */}
+                                        <label>{item.size}</label>
                                     </Flex>
                                     <Flex vertical justify='center' align="start" >
                                         <label className="label-title-info" style={{ flexGrow: 1 }}>Số lượng</label>
@@ -70,11 +82,11 @@ const CartItem = ({ itemKey, item }: { itemKey: number, item: ItemCart }) => {
                                         <Space size={'small'} style={{ flexGrow: 1 }}>
 
                                             <MinusSquareOutlined className="btnChangeAmount"
-                                                onClick={() => dispatch(decrement(itemKey))}
+                                                onClick={() => handleDecrement()}
                                             />
                                             <label>{item.quantity}</label>
                                             <PlusSquareOutlined className="btnChangeAmount"
-                                                onClick={() => dispatch(increment(itemKey))}
+                                                onClick={() => handleIncrement()}
                                             />
 
                                         </Space>
@@ -85,7 +97,7 @@ const CartItem = ({ itemKey, item }: { itemKey: number, item: ItemCart }) => {
 
                                     <label className="label-title-info" >Giá</label>
                                     <p style={{ padding: 8, fontWeight: 'bold' }}>
-                                        {item.quantity * item.price} ₫
+                                        {customCurVND(item.quantity * item.price)}
                                     </p>
                                 </Flex>
                             </Flex>

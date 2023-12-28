@@ -10,7 +10,8 @@ const theme: ThemeConfig = {
         colorPrimary: '#00b96',
         colorBgContainer: '#FFFFFF',
         colorBorder: '#171717',
-        colorBgBase: 'white'
+        colorBgBase: 'white',
+        fontFamily:  'Nunito,  sans-serif'
     },
     components: {
         Layout: {

@@ -18,19 +18,19 @@ const CartElement = ({ item }: { item: CartItem }) => {
             >
                 <Flex >
                     <div style={{ paddingRight: 20, width: '30%' }}>
-                        <Image width={'100%'} src={item.image} preview={false} />
+                        <Image width={'100%'} src={item.thumbnail} preview={false} />
                     </div>
 
                     <Space direction='vertical'>
                         <h4>{item.name}</h4>
                         <Space>
                             <p>Màu sắc: </p>
-                            <b >{item.selectedColor}</b>
+                            <div style={{ width: 15, background: `${item.colorHex}`, height: 15, borderRadius: 50 }} > </div>
                         </Space>
                         <Space size={'large'}>
                             <Space>
                                 <p>Kích thước: </p>
-                                <b>{item.selectedSize}</b>
+                                <b>{item.size}</b>
                             </Space>
                             <Space>
                                 <p>Số lượng: </p>

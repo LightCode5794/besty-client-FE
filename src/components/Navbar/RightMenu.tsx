@@ -7,6 +7,7 @@ import Link from "next/link";
 import CartSideBar from "../Cart/CartSideBar";
 import { useAppSelector } from "@/store/hooks";
 import { selectCart, selectNumberCart } from "@/store/features/cart/cartSlice";
+import UserMenu from "./components/UserMenu";
 
 type MenuMode = "horizontal" | "inline";
 
@@ -68,7 +69,8 @@ const RightMenu = ({ mode }: LeftMenuProps) => {
       </Menu>  */}
       <Space size={32} style={{ fontSize: '20px' }}>
         <SearchOutlined />
-        <UserOutlined />
+        {/* <UserOutlined /> */}
+        <UserMenu/>
         <Badge count={numberCart} size={'small'}>
           <ShoppingOutlined onClick={showDrawer} style={{ fontSize: 20 }} />
         </Badge>

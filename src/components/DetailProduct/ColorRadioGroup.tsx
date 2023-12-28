@@ -31,7 +31,7 @@ const ColorRadioGroup: React.FC<ColorRadioGroupProps> = ({ colors, selectedColor
     const handleClickBtn = (color: Color) => {
 
         handleSelectColor(color?.id == selectedColor?.id ? undefined : color)
-        dispatch(setPickedColor(color.id == selectedColor?.id ? '' : color.hex))
+        dispatch(setPickedColor(color.id == selectedColor?.id ? 0 : color.id))
 
     }
     return (

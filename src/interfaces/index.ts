@@ -1,6 +1,9 @@
 export type User = {
     id: number
+    fullName: string
     name: string
+    email: string
+   
 }
 
 export type Product = {
@@ -18,12 +21,14 @@ export type Product = {
 
 export type CartItem = {
     id: number,
-    quantity: number,
     name: string,
-    image: string,
-    price: number,
-    selectedColor: string,
-    selectedSize: string,
+    price: number;
+    thumbnail: string;
+    colorId: number,
+    colorHex: string,
+    size: string,
+    inventory: number,
+    quantity: number
 }
 export interface TemporaryBill {
     district?: string;
@@ -51,7 +56,6 @@ export interface ProductBasic {
     categories: Category[];
     thumbnail: string;
 }
-
 export interface SizeColor {
     id : number,
     price: number;
@@ -81,5 +85,5 @@ export interface ProductDetail {
 
 export type ImageCarousel = {
     url: string,
-    color: string,
+    colorId: number,
 }
