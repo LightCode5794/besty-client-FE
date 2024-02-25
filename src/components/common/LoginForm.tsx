@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react';
-import { Button, Checkbox, ConfigProvider, Flex, Form, Input, Spin, message } from 'antd';
+import { Button, Checkbox, ConfigProvider, Flex, Form, Input, Space, Spin, message } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import { User } from '@/interfaces';
 import { USER_URL, userUrl } from '../../../config';
@@ -13,12 +13,13 @@ import { loginFailure, loginStart, loginSuccess, selectUser } from '@/store/feat
 import useMessage from 'antd/es/message/useMessage';
 import { GetFirstName } from '@/utils/getFirstName';
 
+import { Row } from 'antd';
+
 type FieldType = {
     email?: string;
     password?: string;
 
 };
-
 
 const LoginForm: React.FC = () => {
     const router = useRouter();
@@ -27,8 +28,6 @@ const LoginForm: React.FC = () => {
     const query = useSearchParams()
 
     const dispatch = useAppDispatch()
-   
-
 
     const handleRedirect = () => {
         const fromPage = query.get('fromPage')
@@ -42,35 +41,35 @@ const LoginForm: React.FC = () => {
         dispatch(loginStart())
         try {
 
-             const userLoginEndpoint = userUrl('login');
-             const token: string = await basicPost<string>(userLoginEndpoint, user);
- 
- 
-             if (!token) {
-                 message.error('Email hoặc mật khẩu chưa chính xác!');
-                 dispatch(loginFailure('Lỗi đăng nhập. Vui lòng kiểm tra lại thông tin đăng nhập.'))
-                 setLoading(false);
-                 return;
-             }
- 
-             const decodedToken = jwt.decode(token) as JwtPayload;
- 
-             //console.log(decodedToken)
-             const { id, email, name, exp } = decodedToken;
- 
-             const userState: User = {
-                 id: id,
-                 email: email,
-                 fullName: name,
-                 name: GetFirstName(name),
-             }
-             //console.log(userState)
- 
-             dispatch(loginSuccess({
-                 user: userState,
-                 token: token,
-                 exp: exp ?? null
-             }))
+            const userLoginEndpoint = userUrl('login');
+            const token: string = await basicPost<string>(userLoginEndpoint, user);
+
+
+            if (!token) {
+                message.error('Email hoặc mật khẩu chưa chính xác!');
+                dispatch(loginFailure('Lỗi đăng nhập. Vui lòng kiểm tra lại thông tin đăng nhập.'))
+                setLoading(false);
+                return;
+            }
+
+            const decodedToken = jwt.decode(token) as JwtPayload;
+
+            //console.log(decodedToken)
+            const { id, email, name, exp } = decodedToken;
+
+            const userState: User = {
+                id: id,
+                email: email,
+                fullName: name,
+                name: GetFirstName(name),
+            }
+            //console.log(userState)
+
+            dispatch(loginSuccess({
+                user: userState,
+                token: token,
+                exp: exp ?? null
+            }))
 
             setLoading(false);
             handleRedirect()
@@ -105,40 +104,57 @@ const LoginForm: React.FC = () => {
             <div>
                 <Spin spinning={loading} tip="Đang xử lý dữ liệu..." size='large' style={{ width: '100%' }} indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />}>
 
-
                     <Form
                         name="basic"
                         style={{ width: '100%' }}
                         initialValues={{ remember: true }}
+                        layout='vertical'
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
                         autoComplete="off"
+                        requiredMark = "optional"
                     >
 
                         <Form.Item<FieldType>
-                            // label="Username"
                             name="email"
-
+                            label="Email"
                             rules={[{ required: true, message: 'Bạn chưa nhập Email/Số diện thoại!' }]}
 
                         >
-                            <Input placeholder='Email/Số điện thoại' size='large' style={{ borderRadius: 0 }} />
+                            <Input placeholder='Email' size='large' style={{ borderRadius: 10 }} />
                         </Form.Item>
 
                         <Form.Item<FieldType>
-                            // label="Password"
+                            label="Password"
                             name="password"
                             rules={[{ required: true, message: 'Mật khẩu chưa chính xác!' }]}
 
-
                         >
-                            <Input.Password placeholder='Mật khẩu' size='large' style={{ borderRadius: 0 }} />
+                            <Input.Password placeholder='Password' size='large' style={{ borderRadius: 10 }} />
                         </Form.Item>
 
-                        <Form.Item style={{ display: "flex", justifyContent: "center" }} >
-                            <Button type="primary" htmlType="submit">
-                                Đăng nhập
+                        <Form.Item>
+                            <Row justify='space-between'>
+                                <Checkbox>Remember Me</Checkbox>
+
+                                <a href='/forgot-password'>Forgot Password?</a>
+                            </Row>
+                        </Form.Item>
+
+                        <Form.Item>
+                            <Button style={{ width: '100%', borderRadius: 10 }} type="primary" htmlType="submit" size='large'>
+                                Login
                             </Button>
+                        </Form.Item>
+
+                        <Form.Item>
+                            <Row>
+                                <Space size='small'>
+                                    <p>You don't have an account?</p>
+                                    <a href='/register' style={{ fontWeight: 'bold' }}>Sign Up</a>
+                                </Space>
+
+                            </Row>
                         </Form.Item>
 
                     </Form>

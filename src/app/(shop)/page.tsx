@@ -12,7 +12,9 @@ import MyDivider from '@/components/common/Divider';
 import { basicFetch } from '@/api/fetchFuntions';
 import { PRODUCT_ALL_URL } from '../../../config';
 import { ProductBasic } from '@/interfaces';
-
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { config } from "@fortawesome/fontawesome-svg-core";
+config.autoAddCss = false;
 
 
 

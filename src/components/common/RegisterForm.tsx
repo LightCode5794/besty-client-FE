@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import { LoadingOutlined } from '@ant-design/icons';
-import { Button, Flex, Form, Input, Select, Spin, message } from 'antd';
+import { Button, Flex, Form, Input, Select, Spin, message, Row, Space } from 'antd';
 import { useRouter } from 'next/navigation';
 import { basicPost } from '@/api/fetchFuntions';
 import { USER_URL, CUSTOMER_ROLE_ID } from '../../../config';
@@ -26,17 +26,17 @@ type UserRegisterInfo = Omit<UserForm, 'passwordConfirm'> & { roleId?: number };
 const RegisterForm: React.FC = () => {
 
     const router = useRouter();
-   
+
 
     const [loading, setLoading] = useState(false)
     const isLoggedIn = useSelector(selectIsLoggedIn)
-    if(isLoggedIn) {
+    if (isLoggedIn) {
         router.replace("/");
     }
     const handleRegister = async (user: UserRegisterInfo) => {
         try {
             //create user to Database
-          
+
             await basicPost(USER_URL, user);
             message.success('Đăng ký tài khoản thành công, vui lòng đăng nhập để tiếp tục')
             router.push('/login')
@@ -50,8 +50,8 @@ const RegisterForm: React.FC = () => {
 
     const onFinish = (values: UserForm) => {
 
-        const {passwordConfirm, ...userInfo} = values;
-        
+        const { passwordConfirm, ...userInfo } = values;
+
         const newUser: UserRegisterInfo = {
             ...userInfo,
             roleId: CUSTOMER_ROLE_ID
@@ -74,20 +74,27 @@ const RegisterForm: React.FC = () => {
 
                 <Spin spinning={loading} tip="Đang xử lý dữ liệu..." size='large' style={{ width: '100%' }} indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />}>
                     <Form
-                        labelCol={{ span: 7 }}
-                        wrapperCol={{ span: 10 }}
-                        layout="horizontal"
                         name="basic"
                         style={{ width: '100%' }}
                         initialValues={{ remember: true }}
+                        layout= 'vertical'
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
                         autoComplete="off"
+                        requiredMark = "optional"
                     >
-                        <Form.Item<UserForm>
-                            label="Giới tính"
-                            name="gender"
 
+                        <Form.Item<UserForm>
+                            label="Fullname"
+                            name="fullName"
+                            rules={[{ required: true, message: 'Bạn chưa nhập tên' }]}
+                        >
+                            <Input size='large' style={{ borderRadius: 10 }} />
+                        </Form.Item>
+
+                        <Form.Item<UserForm>
+                            label="Gender"
+                            name="gender"
                             rules={[{ required: true, message: 'Bạn chưa chọn giới tính' }]}
 
                         >
@@ -100,42 +107,34 @@ const RegisterForm: React.FC = () => {
 
                             />
                         </Form.Item>
-                        <Form.Item<UserForm>
-                            label="Họ và tên"
-                            name="fullName"
-                            rules={[{ required: true, message: 'Bạn chưa nhập tên' }]}
-                        >
-                            <Input size='large' style={{ borderRadius: 0 }} />
-                        </Form.Item>
-
 
                         <Form.Item<UserForm>
-                            label="Số điện thoại"
-                            name="phoneNumber"
-                            rules={[{ required: true, message: 'Bạn chưa nhập số điện thoại' }]}
-                        >
-                            <Input size='large' style={{ borderRadius: 0 }} />
-                        </Form.Item>
-
-                        <Form.Item<UserForm>
-                            label="Địa chỉ Email"
+                            label="Email"
                             name="email"
                             rules={[{ required: true, message: 'Bạn chưa nhập Email' }]}
 
                         >
-                            <Input type='email' size='large' style={{ borderRadius: 0 }} />
+                            <Input type='email' size='large' style={{ borderRadius: 10 }} />
                         </Form.Item>
 
                         <Form.Item<UserForm>
-                            label="Mật khẩu"
+                            label="Phone Number"
+                            name="phoneNumber"
+                            rules={[{ required: true, message: 'Bạn chưa nhập số điện thoại' }]}
+                        >
+                            <Input size='large' style={{ borderRadius: 10 }} />
+                        </Form.Item>
+
+                        <Form.Item<UserForm>
+                            label="Password"
                             name="password"
                             rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}
                             hasFeedback
                         >
-                            <Input.Password size='large' style={{ borderRadius: 0 }} />
+                            <Input.Password size='large' style={{ borderRadius: 10 }} />
                         </Form.Item>
                         <Form.Item<UserForm>
-                            label="Xác nhận mật khẩu"
+                            label="Confirm Password"
                             name={"passwordConfirm"}
                             dependencies={['password']}
                             hasFeedback
@@ -148,13 +147,23 @@ const RegisterForm: React.FC = () => {
                                 },
                             }),]}
                         >
-                            <Input.Password size='large' style={{ borderRadius: 0 }} />
+                            <Input.Password size='large' style={{ borderRadius: 10 }} />
                         </Form.Item>
 
-                        <Form.Item style={{ display: "flex", justifyContent: "center" }} >
-                            <Button type="primary" htmlType="submit" >
+                        <Form.Item>
+                            <Button style={{ width: '100%', borderRadius: 10 }} type="primary" htmlType="submit" size='large' >
                                 Đăng ký
                             </Button>
+                        </Form.Item>
+
+                        <Form.Item>
+                            <Row>
+                                <Space size= 'small'>
+                                    <p>You have an account?</p>
+                                    <a href='/login' style={{fontWeight: 'bold'}}>Sign In</a>
+                                </Space>
+
+                            </Row>
                         </Form.Item>
                     </Form>
                 </Spin>

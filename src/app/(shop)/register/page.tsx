@@ -7,8 +7,8 @@ import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '@/store/features/auth/authSlice';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-
-const imageBg = 'https://anhvienpiano.com/wp-content/uploads/2018/08/dich-vu-chup-anh-thoi-trang-cho-shop-quan-ao-dep-gia-re.jpg'
+import Image from 'next/image'
+import signInImage from '../../../../public/sign_up_image.png'
 
 const RegisterPage = function RegisterPage() {
 
@@ -22,17 +22,31 @@ const RegisterPage = function RegisterPage() {
     }, [isLoggedIn, router])
     return (
         <>
-            <Flex vertical justify='center' style={{ padding: 60, backgroundImage: `url(${imageBg})`, backgroundSize: "cover", }} gap={40}>
-                <Row justify='center' style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)' }}  >
-                    <h3 style={{ marginTop: 20 }}>ĐĂNG KÝ TÀI KHOẢN BESTY</h3>
-                    <Col span={24} style={{ padding: '20px' }}>
-                        <Flex align='center' vertical style={{ width: '100%' }} gap={20}>
+            <div className='content-layout-container'>
+
+                <Row style={{ border: '1px solid #d9d9d9 ' }}>
+                    <Col flex="2">
+                        <Image style={{ width: '100%', height: '100%' }} src={signInImage} alt="Picture of the author" />
+                    </Col>
+                    <Col flex="1" style={{
+                        padding: '0 15vh 0 10vh',
+                        display: 'flex',
+                        flexDirection: "column",
+                        justifyContent: 'center'
+                    }}>
+                        <Flex vertical >
+                            <h1>Create New Account</h1>
+                            <div style={{ padding: '5px 0px' }}></div>
+                            <p style={{ color: "#A4A1AA" }}>Please enter details</p>
+                            <div style={{ padding: '10px 0px' }}></div>
                             <RegisterForm />
                         </Flex>
-                    </Col>
-                </Row>
 
-            </Flex>
+                    </Col>
+
+                </Row>
+            </div>
+
         </>
     );
 }
