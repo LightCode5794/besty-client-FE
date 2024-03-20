@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Menu } from "antd";
+import Link from "next/link";
 
 type MenuMode = "horizontal" | "inline";
 
@@ -10,13 +11,13 @@ interface LeftMenuProps {
 }
 
 const menuItems = [
-  {
-    key: 'man',
-    label: 'Hàng mới về',
-  },
+  // {
+  //   key: 'man',
+  //   label: 'Hàng mới về',
+  // },
   {
     key: 'woman',
-    label: 'Trang phục',
+    label: ( <Link href={'/product'}>Trang phục</Link>)
   },
   // {
   //   key: 'about',

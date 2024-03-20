@@ -42,8 +42,11 @@ export const cartSlice = createSlice({
                 let _cart: CartItem = {
                     ...action.payload
                 }
+               
 
                 state.Carts.push(_cart);
+               
+                
             }
 
             if (isInventory) {

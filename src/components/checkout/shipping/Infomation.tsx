@@ -1,6 +1,9 @@
 'use client'
 import { fetchDistricts, fetchProvinces, fetchWards } from "@/api/apiLocation";
+import { OrderDetail } from "@/components/DetailProduct/interface";
 import { TemporaryBill } from "@/interfaces";
+import { selectUser } from "@/store/features/auth/authSlice";
+import { selectCart } from "@/store/features/cart/cartSlice";
 import { selectBill, setBill } from "@/store/features/payment/billSlice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { Button, Divider, Form, Input, Select, Typography } from "antd";
@@ -45,14 +48,30 @@ const Information = () => {
 
     const router = useRouter()
     const stateBill = useAppSelector(selectBill)
+    const stateCart = useAppSelector(selectCart)
+    const user = useAppSelector(selectUser)
+
+    let Products: OrderDetail[] = [];
+    let TotalCart: number = 0;
+
+    Object.keys(stateCart.Carts).forEach((item) => {
+        const index = parseInt(item);
+        const product = stateCart.Carts[index];
+        TotalCart += product.quantity * product.price
+        Products.push({id: product.sizeId, quantity: product.quantity});
+
+    });
+   
+
     const dispatch = useAppDispatch()
+
 
     const onFinish = (values: TemporaryBill) => {
         //console.log('Success:', values);
         const provinceName = provinces.find(province => province.code === selectedProvince)
         const districtName = districts.find(district => district.code === selectedDistrict)
         const wardName = wards.find(ward => ward.code === selectedWard)
-        values = { ...values, province: provinceName?.name || '', district: districtName?.name || '', ward: wardName?.name || '' }
+        values = { ...values, province: provinceName?.name || '', district: districtName?.name || '', ward: wardName?.name || '', products: Products, totalAmount: TotalCart }
         // console.log(values)
         dispatch(setBill(values))
         router.push('/checkout/payment');
@@ -136,7 +155,7 @@ const Information = () => {
                 <Form.Item<FieldType>
                     name="email"
                     rules={[{ required: true, message: 'Đây là trường bắt buộc' }]}
-                    initialValue={stateBill.email}
+                    initialValue={user? user.email : stateBill.email}
                 >
                     <Input placeholder="EMAIL" style={{ width: '100%' }} type='email' />
                 </Form.Item>
@@ -152,7 +171,7 @@ const Information = () => {
                 <Form.Item<FieldType>
                     name="fullName"
                     rules={[{ required: true, message: 'Đây là trường bắt buộc' }]}
-                    initialValue={stateBill.fullName}
+                    initialValue={user? user.fullName : stateBill.fullName}
                 >
                     <Input placeholder="HỌ VÀ TÊN" />
                 </Form.Item>
@@ -162,7 +181,7 @@ const Information = () => {
                     rules={[{ required: true, message: 'Đây là trường bắt buộc' }]}
                 >
                     <Select placeholder='TỈNH/THÀNH PHỐ' value={selectedProvince} onChange={handleProvinceChange}>
-                        {provinces.length && provinces.map((province, index) => (
+                        {provinces?.length && provinces.map((province, index) => (
                             <Select.Option value={province.code} key={index}>{province.name}</Select.Option>
                         )
                         )}
@@ -209,7 +228,7 @@ const Information = () => {
                 </Form.Item>
 
                 <Form.Item >
-                    <Button type="primary" htmlType='submit'  style={{float: "right"}}>
+                    <Button type="primary" htmlType='submit' style={{ float: "right" }}>
                         Tiếp tục
                     </Button>
                 </Form.Item>

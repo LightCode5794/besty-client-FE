@@ -6,9 +6,12 @@ import { useState } from "react";
 
 
 const ShippingMethod = () => {
-    const [isSelectedBtn, setClickedBtn] = useState(true);
+
     const stateBill = useAppSelector(selectBill)
-    console.log(stateBill)
+    
+
+    
+    
     return (
         <>
             <h4 style={{ padding: 20, fontWeight: 'bold', margin: 0 }}>Phương thức vận chuyển</h4>

@@ -1,13 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import cartReducer from './features/cart/cartSlice'
 import billReducer from './features/payment/billSlice'
-import storage from 'redux-persist/lib/storage';
 import authReducer from './features/auth/authSlice'
 import { persistReducer, persistStore } from 'redux-persist';
 import { createPersistSessionStorage, createPersistStorage } from './persistStorage';
 import pickedColorSlice from './features/slider/pickedColorSlice';
-import session from 'redux-persist/lib/storage/session';
-import sessionStorage from 'redux-persist/es/storage/session';
+
 
 
 
@@ -23,7 +21,6 @@ const persistConfig = {
 const authPersistConfig = {
     key: 'auth',
     storage: createPersistSessionStorage(),
-    timeout: 3 * 60 * 60 * 1000,
   }
 const rootReducer = combineReducers({
     // counter: counterReducer,

@@ -1,29 +1,19 @@
 'use client'
 
-import React, { use, useEffect, useState } from 'react';
-import type { CollapseProps } from 'antd';
+import React, { useEffect, useState } from 'react';
 import { Button, Flex, Form, Space, message } from 'antd';
 import SizeRadioGroup from './SizeRadioGroup';
-import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 import ReadMore from './ReadMore';
 import ColorRadioGroup from './ColorRadioGroup';
 import { useAppSelector, useAppDispatch } from '@/store/hooks'
 import { addCart, increment, selectCart } from '../../store/features/cart/cartSlice'
-import { Product, Variation } from '@/interfaces';
 import { customCurVND } from '@/utils/formatterCurrency';
 import { Color, ProductInfo, Size, SizeBtn } from './interface';
-
-
-const colors: string[] = ['red', 'blue', 'green'];
-const sizes: string[] = ['S', 'M', 'XL', 'XXL'];
-
+import LikeProduct from './LikeProduct';
 
 interface ChildComponentProps {
   product: ProductInfo;
 }
-
-
-
 
 const Information = ({ product }: ChildComponentProps) => {
   const [form] = Form.useForm();
@@ -31,9 +21,9 @@ const Information = ({ product }: ChildComponentProps) => {
   const stateCart = useAppSelector(selectCart)
   const variations = product.variations;
   const dispatch = useAppDispatch()
-  const [liked, setLike] = useState(product.liked);
   const [selectedColor, setSelectedColor] = useState<Color | undefined>();
   const [selectedSize, setSelectedSize] = useState<SizeBtn | undefined>();
+  const [isProductAvailable, setIsProductAvailable] = useState(true);
 
   const [sizes, setSizesList] = useState<Size[]>(
     variations.flatMap(v => v.sizesColor.map(s => ({ id: s.id, colorId: v.id, name: s.size, inventory: s.inventory, })))
@@ -53,6 +43,8 @@ const Information = ({ product }: ChildComponentProps) => {
       return self.indexOf(value) === index;
     });
     const sizeBtnsList: SizeBtn[] = uniqueSizes.map((item) => ({ name: item, isDisable: checkInventory(item) ? false : true }))
+    const isAvailable = sizeBtnsList.some((item) => item.isDisable == false);
+    setIsProductAvailable(isAvailable);
     setSizeBtns(sizeBtnsList);
 
   }
@@ -78,13 +70,14 @@ const Information = ({ product }: ChildComponentProps) => {
   }, [selectedSize])
 
   const handleSelectColor = (color: Color | undefined) => {
-    if (color) {
+    if (color && isProductAvailable) {
+
       const sizesInColor = sizes.filter(s => s.colorId == color.id);
 
       const sizesInColorName = sizesInColor.map(s => s.name);
 
       const checkInventory = (nameSize: string) => {
-        const res = sizesInColor.some(s => s.name == nameSize && s.inventory)
+        const res = sizesInColor.some(s => s.name == nameSize && s.inventory > 0)
         return res;
       }
 
@@ -132,17 +125,6 @@ const Information = ({ product }: ChildComponentProps) => {
 
   }
 
-
-  function onClickHearth() {
-    setLike(!liked)
-    if (liked) {
-      //handle add like to database
-    }
-    if (liked) {
-      //remove from data favorite
-    }
-  }
-
   const addCartError = () => {
     messageApi.open({
       type: 'error',
@@ -179,6 +161,7 @@ const Information = ({ product }: ChildComponentProps) => {
           price: product.price,
           thumbnail: color?.image ?? '',
           colorId: colorId,
+          sizeId: sizePicked?.id ?? 0,
           colorHex: color?.color ?? '',
           size: size,
           inventory: sizePicked?.inventory ?? 0,
@@ -196,11 +179,7 @@ const Information = ({ product }: ChildComponentProps) => {
       <Space direction='vertical' style={{ width: '80%' }}>
         <Flex align='center' justify='space-between'>
           <h2>{product.name}</h2>
-          <div className='heart' onClick={() => onClickHearth()} style={{ cursor: 'pointer' }}>
-            {
-              liked ? <HeartFilled style={{ fontSize: '18px' }} /> : <HeartOutlined style={{ fontSize: '18px' }} />
-            }
-          </div>
+          <LikeProduct productId={product.id} />
         </Flex>
         <Flex>
           <h2>{customCurVND(product.price)}</h2>
@@ -216,12 +195,23 @@ const Information = ({ product }: ChildComponentProps) => {
           <ColorRadioGroup colors={colors} handleSelectColor={handleSelectColor} selectedColor={selectedColor} />
           <SizeRadioGroup sizes={sizeBtns} handleSelectedSize={handleSelectedSize} selectedSize={selectedSize} />
           <Form.Item>
-            <Button
-              type='primary'
-              htmlType='submit'
-              block size='large'
-              style={{ borderRadius: 0, paddingTop: 10, paddingBottom: 30, marginTop: 16 }}
-            >Thêm vào giỏ hàng</Button>
+            {
+              isProductAvailable ? <Button
+                type='primary'
+                htmlType='submit'
+                block size='large'
+                style={{ borderRadius: 0, paddingTop: 10, paddingBottom: 30, marginTop: 16 }}
+              >Thêm vào giỏ hàng</Button>
+                :
+                <Button
+                  type='primary'
+                  disabled={true}
+                  block size='large'
+                  style={{ borderRadius: 0 }}
+                >Hết Hàng</Button>
+
+            }
+
           </Form.Item>
         </Form>
 

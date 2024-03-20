@@ -12,6 +12,8 @@ const initialState: TemporaryBill = {
     numberPhone: '',
     province: '',
     ward: '',
+    products: [],
+    totalAmount: 0,
 };
 
 export const billSlice = createSlice({
@@ -19,7 +21,6 @@ export const billSlice = createSlice({
     initialState,
     reducers: {
         setBill: (state, action: PayloadAction<TemporaryBill>) => {
-
 
             state.district = action.payload.district;
             state.email = action.payload.email;
@@ -29,15 +30,19 @@ export const billSlice = createSlice({
             state.province = action.payload.province;
             state.ward = action.payload.ward;
             state.fullName = action.payload.fullName;
+            state.products = action.payload.products;
+            state.totalAmount = action.payload.totalAmount;
             // console.log(state)
 
         },
+        clearBill:() => initialState
+
     }
 })
 
 // Action creators are generated for each case reducer function
 export const selectBill = (state: RootState) => state.bill
 
-export const { setBill } = billSlice.actions
+export const { setBill, clearBill } = billSlice.actions
 
 export default billSlice.reducer

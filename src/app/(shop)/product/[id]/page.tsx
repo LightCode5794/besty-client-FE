@@ -1,28 +1,20 @@
 
 import {
-    Button,
     Row,
     Col,
-    Layout,
-    Flex,
-    Space,
-
 } from 'antd';
-import { notFound, useRouter } from 'next/navigation';
+import { notFound} from 'next/navigation';
 import ProductCarousel from '@/components/DetailProduct/ProductCarousel';
 import CarouselTest from '@/components/HomePage/ProductCaurosel';
 import MyDivider from '@/components/common/Divider';
-import ProductComment from '@/components/DetailProduct/ProductComment';
 import Information from '@/components/DetailProduct/Information';
-import { ImageCarousel, Product, ProductBasic, ProductDetail } from '@/interfaces';
+import { ImageCarousel, ProductDetail } from '@/interfaces';
 import { basicFetch } from '@/api/fetchFuntions';
-import { PRODUCT_ALL_URL, productUrl } from '../../../../../config';
-import { useState } from 'react';
-
+import { PRODUCT_BASE_URL, productUrl } from '../../../../../config';
 
 // Return a list of `params` to populate the [slug] dynamic segment
 export async function generateStaticParams() {
-    const products = await basicFetch<ProductDetail[]>(PRODUCT_ALL_URL);
+    const products = await basicFetch<ProductDetail[]>(PRODUCT_BASE_URL);
 
     return products.map((p) => ({
         id: p.id.toString(),
@@ -86,8 +78,9 @@ const productDetail = async function productDetail({ params }: { params: { id: s
                     </Col>
                 </Row>
                 <div>
-                    <MyDivider title='SẢN PHẨM TƯƠNG ĐỒNG' />
-                    {/* <CarouselTest /> */}
+                    <MyDivider title='CÓ THỂ BẠN SẼ THÍCH' />
+                   
+                    <CarouselTest />
                 </div>
                 <div style={{ paddingTop: '48px' }}>
                     {/* <MyDivider title='KHÁCH HÀNG ĐÁNH GIÁ' mode='left' /> */}

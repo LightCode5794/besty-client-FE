@@ -7,12 +7,16 @@ import { selectCart } from "@/store/features/cart/cartSlice";
 import { RightOutlined } from '@ant-design/icons';
 import { useState } from "react";
 import ModalConfirmOrder from "./ModalConfirmOrder";
-import CardEmpty from "./CartEmpty";
+import CardEmpty from "../../common/CartEmpty";
 import { customCurVND } from "@/utils/formatterCurrency";
+import { selectIsLoggedIn } from "@/store/features/auth/authSlice";
+import { useRouter } from "next/navigation";
 ;
 
 const ContentCheckout = () => {
     const stateCart = useAppSelector(selectCart)
+    const isLoggedIn = useAppSelector(selectIsLoggedIn)
+    const router = useRouter()
 
 
     let ListCart: CartItem[] = [];
@@ -25,6 +29,10 @@ const ContentCheckout = () => {
     });
 
     const showModal = () => {
+        if(isLoggedIn) {
+            router.push('/checkout/shipping')
+            return
+        }
         setIsModalOpen(true);
     };
 

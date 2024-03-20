@@ -1,3 +1,5 @@
+import { OrderDetail } from "@/components/DetailProduct/interface"
+
 export type User = {
     id: number
     fullName: string
@@ -27,6 +29,7 @@ export type CartItem = {
     colorId: number,
     colorHex: string,
     size: string,
+    sizeId: number,
     inventory: number,
     quantity: number
 }
@@ -39,6 +42,8 @@ export interface TemporaryBill {
     numberPhone: string;
     province: string;
     ward: string;
+    products: OrderDetail[];
+    totalAmount: number;
 }
 
 export interface Category {

@@ -8,16 +8,19 @@ import './style.css'
 
 interface RadioBtnGroupProps {
     content: string[],
+    handleClick: (keySort : number) => void;
 }
 // const selectedBtnArr : number[] = [];
 
-const BtnGroupSelectSingle: React.FC<RadioBtnGroupProps> = ({ content}) => {
+const BtnGroupSelectSingle: React.FC<RadioBtnGroupProps> = ({ content, handleClick}) => {
 
 
     const [activeButtonIndex, setActiveButtonIndex] = useState<number | null>(null);
 
     function handleClickBtn(index: number) {
+        
         setActiveButtonIndex(index);
+        handleClick(index)
     }
     return (
         <>

@@ -2,7 +2,7 @@
 import { Button, Result } from "antd";
 import Link from "next/link";
 
-const PaymentNotification = () => {
+const PaymentNotificationSuccess = () => {
     return (
         <>
             <Result
@@ -23,4 +23,4 @@ const PaymentNotification = () => {
 
     )
 }
-export default PaymentNotification;
+export default PaymentNotificationSuccess;

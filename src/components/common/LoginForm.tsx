@@ -5,7 +5,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { User } from '@/interfaces';
 import { USER_URL, userUrl } from '../../../config';
 import { basicPost } from '@/api/fetchFuntions';
-import { redirect, useRouter, useSearchParams } from 'next/navigation';
+import { redirect, usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
@@ -25,12 +25,17 @@ const LoginForm: React.FC = () => {
     const [message, contextHolder] = useMessage()
     const [loading, setLoading] = useState(false)
     const query = useSearchParams()
+    const pathName = usePathname()
 
     const dispatch = useAppDispatch()
    
 
 
     const handleRedirect = () => {
+        if(pathName == '/checkout/cart') {
+            router.push('/checkout/shipping')
+            return;
+        }
         const fromPage = query.get('fromPage')
         const redirectPage = fromPage && fromPage != '/login' ? fromPage : '/';
         router.replace(redirectPage)
@@ -43,7 +48,7 @@ const LoginForm: React.FC = () => {
         try {
 
              const userLoginEndpoint = userUrl('login');
-             const token: string = await basicPost<string>(userLoginEndpoint, user);
+             const token: string = await basicPost<string>(userLoginEndpoint, user) ?? "";
  
  
              if (!token) {

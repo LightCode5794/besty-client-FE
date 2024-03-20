@@ -1,12 +1,13 @@
 import React from "react";
 import { message, MenuProps, Dropdown, Space, Flex } from "antd";
-import { UserOutlined, LoginOutlined, DownOutlined, ShoppingOutlined, LogoutOutlined, HeartOutlined, FileMarkdownOutlined} from "@ant-design/icons";
+import { UserOutlined, LoginOutlined, DownOutlined, ShoppingOutlined, LogoutOutlined, HeartOutlined, FileMarkdownOutlined } from "@ant-design/icons";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { redirect, usePathname, useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { logout, selectUser } from "@/store/features/auth/authSlice";
 import { User } from "@/interfaces";
 import { useDispatch } from "react-redux";
+import { clearCart } from "@/store/features/cart/cartSlice";
 
 type MenuMode = "horizontal" | "inline";
 
@@ -48,27 +49,40 @@ const UserMenu = () => {
             icon: <ShoppingOutlined />,
         },
         {
-            label: "Đơn hàng",
+            label:(
+                <Link href={`/user/orders`}>
+                    Đơn hàng
+                </Link>
+            ),
             key: "2",
-            icon: <FileMarkdownOutlined/>,
+            icon: <FileMarkdownOutlined />,
         },
         {
-            label: "Yêu thích",
-            key: "3",
+            label: (
+                <Link href={`/user/favourites`}>
+                    Yêu thích
+                </Link>
+            ),
+            key: "/favourites",
             icon: <HeartOutlined />,
         },
         {
             label: "Đăng xuất",
             key: "/logout",
-            icon: <LogoutOutlined /> ,
+            icon: <LogoutOutlined />,
         },
     ];
 
     const handleMenuClick: MenuProps["onClick"] = (e) => {
-        if (e.key == '/logout') {
-            dispatch(logout())
-            route.replace("/");
+        switch (e.key) {
+            case "/logout":
+                {
+                    dispatch(clearCart())
+                    dispatch(logout())
+                    route.replace("/");
+                }
         }
+
     };
 
     const menuPropsWithoutLogin = {

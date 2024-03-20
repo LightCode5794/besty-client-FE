@@ -6,13 +6,13 @@ import FilterPanel from '@/components/product/filterPanel/FilterPanel';
 import GridProduct from '@/components/product/productGrid/GridProduct';
 import { basicFetch } from '@/api/fetchFuntions';
 import { ProductBasic } from '@/interfaces';
-import { PRODUCT_ALL_URL } from '../../../../config';
+import { PRODUCT_BASE_URL } from '../../../../config';
 import { ProductInfo } from '@/components/DetailProduct/interface';
 
 
 
 const getProductData = async () => {
-    const  productsData  = await basicFetch<ProductBasic[]>(PRODUCT_ALL_URL);
+    const  productsData  = await basicFetch<ProductBasic[]>(PRODUCT_BASE_URL);
     
     return {
       productsData
@@ -22,19 +22,15 @@ const getProductData = async () => {
   async function ProductPage() {
 
     const {productsData }  = await getProductData();
+
     return <>
         <div className='content-layout-container'>
             <div>
-                <h2>TRANG PHỤC(276)</h2>
+                <h2>TRANG PHỤC ({productsData?.length})</h2>
             </div>
+            
             <div>
-                <FilterPanel />
-            </div>
-            <div>
-                <Image src='https://d2308c07sw6r8q.cloudfront.net/media/catalog/category/CATBAN-CAMPAGNE-DESK-MIXTE.jpg' width={'100%'} preview={false}/>
-            </div>
-            <div>
-                <GridProduct products={productsData}/>
+                <GridProduct products={productsData ?? []}/>
             </div>
         </div>
     </>

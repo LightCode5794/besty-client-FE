@@ -30,6 +30,18 @@ const PaymentMethod = () => {
                     <p>Thanh toán online qua VNPAY(QR, Thẻ ATM nội địa  hoặc thẻ quốc tế)</p>
                     <Image src='https://downloadlogomienphi.com/sites/default/files/logos/download-logo-vector-vnpayqr-noqr-mien-phi.jpg' width={'50%'} preview={false} />
                 </Space>
+                <Space style={{padding: '20px 0px'}}>
+                    <Button
+                        shape='circle'
+                        onClick={() => setClickedBtn(!isSelectedBtn)}
+                        style={{
+                            backgroundColor: 'white',
+                            backgroundClip: 'content-box',
+                            padding: 2,
+                        }}
+                    />
+                    <p>Thanh toán khi nhận hàng (COD)</p>
+                </Space>
             </Layout>
         </>
 

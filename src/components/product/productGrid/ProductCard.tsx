@@ -1,5 +1,5 @@
 'use client'
-import { Card, Collapse, ConfigProvider, Space, Typography, theme } from 'antd';
+import { Card, Collapse, ConfigProvider, Space, Typography, theme, Image} from 'antd';
 const { Text, Title } = Typography;
 import React from 'react';
 import type { CollapseProps } from 'antd';
@@ -7,7 +7,7 @@ import Meta from 'antd/es/card/Meta';
 import formatterCurrency, { customCurVND } from '@/utils/formatterCurrency';
 import { useRouter } from 'next/navigation';
 import { ProductBasic } from '@/interfaces';
-import Image from 'next/image';
+
 
 const ProductCard = ({product}: {product: ProductBasic}) => {
 
@@ -23,7 +23,7 @@ const ProductCard = ({product}: {product: ProductBasic}) => {
                 hoverable
                 style={{ borderRadius: 0 }}
                 cover={
-                    <Image alt="example" src={product.thumbnail} style={{ borderRadius: 0 }}
+                    <Image preview={false} height={300} alt="example" src={product.thumbnail} style={{ borderRadius: 0 }}
                     />
                 }
                 onClick={() => handleClickCard()}

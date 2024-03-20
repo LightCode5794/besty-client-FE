@@ -10,6 +10,11 @@ export type ProductInfo = {
     description: string
 };
 
+export type OrderDetail = {
+    id: number,
+    quantity: number,
+}
+
 export interface ChildComponentProps {
     product: ProductInfo;
 }

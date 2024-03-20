@@ -7,10 +7,12 @@ import { RightOutlined, LeftOutlined } from '@ant-design/icons';
 import styles from '../../styles/home/productCaurosel.module.scss'
 
 import { CarouselRef } from 'antd/es/carousel';
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from 'next/link';
 import { ProductBasic } from '@/interfaces';
 import { customCurVND } from '@/utils/formatterCurrency';
+import { basicFetch } from '@/api/fetchFuntions';
+import { PRODUCT_BASE_URL } from '../../../config';
 
 
 const styleAr = {
@@ -28,11 +30,31 @@ const styleBtnAr = {
 }
 
 interface ProductCarouselProps {
-    products: ProductBasic[]
+    products?: ProductBasic[]
 }
 
-const ProductCarousel = ({ products }: ProductCarouselProps) => {
 
+const ProductCarousel =  ({ products }: ProductCarouselProps) => {
+
+
+   
+    const [productList, setProductList] = useState<ProductBasic[]>([]);
+   
+
+    useEffect(() => {
+        const fetchData = async () => {
+          if (!products || products.length === 0) {
+            const  productCarousels  = await basicFetch<ProductBasic[]>(PRODUCT_BASE_URL);
+
+            setProductList(productCarousels);
+          }
+          else {
+            setProductList(products)
+          }
+        };
+    
+        fetchData();
+      }, [products]);
 
     const ref = useRef<CarouselRef>(null);
 
@@ -48,25 +70,25 @@ const ProductCarousel = ({ products }: ProductCarouselProps) => {
     return (
         <div className='p-relative'>
             {
-                products && products.length > 0 ?
+                productList && productList.length > 0 ?
                     <Carousel ref={ref}
                         // draggable
                         // swipeToSlide={true}
                         dots={false}
-                        slidesToShow={products.length <= 5 ? products.length : 5}
+                        slidesToShow={productList.length <= 5 ? productList.length : 5}
                         slidesToScroll={1}
                         // lazyLoad={"ondemand"}
                         infinite
                         initialSlide={0}>
                         {
-                            products?.map((product, index) => (
+                            productList?.map((product, index) => (
                                 <div key={index}>
                                     <div className={styles.productCauroselItem} >
                                         <Link href={`/product/${product.id.toString()}`} >
                                             <Image src={product.thumbnail} alt={product.id.toString()}
                                                 // object-fit={"cover"} loading={"lazy"}
                                                 width={'240px'}
-                                                height={'300px'}
+                                                height={'280px'}
                                                 preview={false}
                                                 content=''
                                             />
@@ -97,7 +119,7 @@ const ProductCarousel = ({ products }: ProductCarouselProps) => {
                     <h2>No Product</h2>
             }
             {
-                products && products.length > 4 &&
+                productList && productList.length > 4 &&
                 <div className={styles.btnCourosel}>
                     <LeftOutlined style={styleAr} onClick={() => preSlide()} />
                     <RightOutlined style={styleAr} onClick={() => nextSlide()} />
