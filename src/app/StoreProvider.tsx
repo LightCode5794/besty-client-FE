@@ -1,10 +1,10 @@
 'use client'
+
 import { useRef } from 'react'
 import { Provider } from 'react-redux'
 import { makeStore, AppStore } from '../store/store'
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
-import { Spin } from 'antd'
 
 export default function StoreProvider({
     children
