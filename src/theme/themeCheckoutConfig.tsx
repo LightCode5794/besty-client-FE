@@ -11,7 +11,7 @@ const themeCheckout: ThemeConfig = {
         colorBgContainer: '#FFFFFF',
         colorPrimaryBorder: '#171717',
         colorBorder: '#171717',
-        // fontFamily: 'Roboto',
+        fontFamily: '__Jost_bfc8ce',
         colorBgBase: 'white'
 
     },

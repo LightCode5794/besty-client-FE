@@ -89,7 +89,7 @@ const RegisterForm: React.FC = () => {
                             name="fullName"
                             rules={[{ required: true, message: 'Bạn chưa nhập tên' }]}
                         >
-                            <Input size='large' style={{ borderRadius: 10 }} />
+                            <Input className='rounded-lg' size='large' />
                         </Form.Item>
 
                         <Form.Item<UserForm>
@@ -114,7 +114,7 @@ const RegisterForm: React.FC = () => {
                             rules={[{ required: true, message: 'Bạn chưa nhập Email' }]}
 
                         >
-                            <Input type='email' size='large' style={{ borderRadius: 10 }} />
+                            <Input className='rounded-lg' type='email' size='large'/>
                         </Form.Item>
 
                         <Form.Item<UserForm>
@@ -122,7 +122,7 @@ const RegisterForm: React.FC = () => {
                             name="phoneNumber"
                             rules={[{ required: true, message: 'Bạn chưa nhập số điện thoại' }]}
                         >
-                            <Input size='large' style={{ borderRadius: 10 }} />
+                            <Input className='rounded-lg' size='large' />
                         </Form.Item>
 
                         <Form.Item<UserForm>
@@ -131,7 +131,7 @@ const RegisterForm: React.FC = () => {
                             rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}
                             hasFeedback
                         >
-                            <Input.Password size='large' style={{ borderRadius: 10 }} />
+                            <Input.Password className='rounded-lg' size='large' />
                         </Form.Item>
                         <Form.Item<UserForm>
                             label="Confirm Password"
@@ -147,11 +147,11 @@ const RegisterForm: React.FC = () => {
                                 },
                             }),]}
                         >
-                            <Input.Password size='large' style={{ borderRadius: 10 }} />
+                            <Input.Password className='rounded-lg' size='large' />
                         </Form.Item>
 
                         <Form.Item>
-                            <Button style={{ width: '100%', borderRadius: 10 }} type="primary" htmlType="submit" size='large' >
+                            <Button className="bg-black" style={{ width: '100%', borderRadius: 10 }} type="primary" htmlType="submit" size='large' >
                                 Đăng ký
                             </Button>
                         </Form.Item>

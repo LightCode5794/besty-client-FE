@@ -8,7 +8,7 @@ const Header = () => {
         <>
 
             <Flex justify='center' align='center' style={{ padding: '8px 0px' }}>
-                <Link href={'/'} style={{ color: 'black' }} ><h1 style={{ fontSize: 36 }}>BESTY</h1></Link>
+                <Link href={'/'} style={{ color: 'black' }} ><h1 style={{ fontSize: 36 }}>Fashion Flow</h1></Link>
             </Flex>
             <Divider style={{ margin: 0 }} />
             <Flex justify='center' style={{ margin: '16px 0px' }}>

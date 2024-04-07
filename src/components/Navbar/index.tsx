@@ -38,7 +38,7 @@ const MyNavbar = () => {
         <Layout>
           <Layout.Header className="nav-header">
             <div className="logo">
-              <Link href={"/"}><h1 className="brand-font" style={{ fontSize: 30 }}>BESTY</h1></Link>
+              <Link href={"/"}><h1 className="brand-font" style={{ fontSize: 30 }}>Fashion Flow</h1></Link>
 
             </div>
             <div className="navbar-menu">

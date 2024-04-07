@@ -1,7 +1,7 @@
-
-
-import React from "react";
-import { Menu } from "antd";
+import React, { Children } from "react";
+import { Menu, Space, Dropdown } from "antd";
+import MegaMenu from "./MegaMenu";
+import Link from 'next/link';
 
 type MenuMode = "horizontal" | "inline";
 
@@ -11,28 +11,41 @@ interface LeftMenuProps {
 
 const menuItems = [
   {
-    key: 'man',
-    label: 'Hàng mới về',
+    label: <Link href="/"> Home</Link>,
+    key: 'home',
   },
   {
-    key: 'woman',
-    label: 'Trang phục',
+    label: 'Shop',
+    key: 'shop',
+    children: [
+      {
+        label: <MegaMenu />,
+        key: "shop_mega_menu",
+        style: {
+          height: "fit-content",
+          padding: 20,
+          backgroundColor: "white",
+        }
+      }
+    ]
   },
-  // {
-  //   key: 'about',
-  //   label: 'About',
-  // },
-  // {
-  //   key: 'contact',
-  //   label: 'Contact',
-  // },
+  {
+    label: 'Our Story',
+    key: 'our-story',
+  },
+  {
+    label: 'Blog',
+    key: 'blog',
+  },
+  {
+    label: 'Contact Us',
+    key: 'contact-us',
+  },
 ];
 
 const LeftMenu = ({ mode }: LeftMenuProps) => {
   return (
-    // <div></div>
     <Menu mode={mode} disabledOverflow={true} items={menuItems} />
-
   );
 };
 

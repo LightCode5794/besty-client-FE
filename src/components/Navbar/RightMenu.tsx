@@ -2,7 +2,7 @@
 'use client'
 import React, { useState } from "react";
 import { Menu, Avatar, ConfigProvider, Space, Button, Badge } from "antd";
-import { UserOutlined, CodeOutlined, LogoutOutlined, SearchOutlined, ShoppingOutlined } from "@ant-design/icons";
+import { HeartOutlined, UserOutlined, CodeOutlined, LogoutOutlined, SearchOutlined, ShoppingOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import CartSideBar from "../Cart/CartSideBar";
 import { useAppSelector } from "@/store/hooks";
@@ -69,11 +69,11 @@ const RightMenu = ({ mode }: LeftMenuProps) => {
       </Menu>  */}
       <Space size={32} style={{ fontSize: '20px' }}>
         <SearchOutlined />
-        {/* <UserOutlined /> */}
-        <UserMenu/>
+        <HeartOutlined />
         <Badge count={numberCart} size={'small'}>
           <ShoppingOutlined onClick={showDrawer} style={{ fontSize: 20 }} />
         </Badge>
+        <UserMenu/>
         <CartSideBar onClose={onClose} open={open} />
       </Space>
     </ConfigProvider>

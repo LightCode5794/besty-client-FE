@@ -48,12 +48,12 @@ const ForgotPasswordPage = function ForgotPasswordPage() {
                         <Flex vertical >
 
                             <Space onClick={handleBack}>
-                                <FontAwesomeIcon icon={faAngleLeft} style={{ color: "black", fontSize: 28 }}></FontAwesomeIcon>
+                                <FontAwesomeIcon icon={faAngleLeft} style={{ color: "black", fontSize: 28 }}/>
                                 <p style={{ fontSize: 16 }}>Back</p>
                             </Space>
 
                             <div style={{ padding: '15px 0px' }}></div>
-                            <h1>Forgot Password</h1>
+                            <h1 className='font-bold text-3xl'>Forgot Password</h1>
                             <div style={{ padding: '5px 0px' }}></div>
                             <p style={{ color: "#A4A1AA" }}>Enter your registered email address. we’ll send you a code to reset your password.</p>
                             <div style={{ padding: '15px 0px' }}></div>

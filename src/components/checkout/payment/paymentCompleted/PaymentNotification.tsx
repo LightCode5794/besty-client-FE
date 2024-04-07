@@ -8,7 +8,7 @@ const PaymentNotification = () => {
             <Result
                 status="success"
                 title="THANH TOÁN THÀNH CÔNG!"
-                subTitle="Cám ơn quý khách đã lựa chọn BESTY! Nhân viên hỗ trợ sẽ liên hệ để xác nhận lại đơn hàng với bạn trong vòng  1-5 phút nữa."
+                subTitle="Cám ơn quý khách đã lựa chọn Fashion Flow! Nhân viên hỗ trợ sẽ liên hệ để xác nhận lại đơn hàng với bạn trong vòng  1-5 phút nữa."
                 extra={[
                     <Button type="primary" key="console">
                         Xem đơn hàng của bạn

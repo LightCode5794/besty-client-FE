@@ -35,7 +35,7 @@ const RegisterPage = function RegisterPage() {
                         justifyContent: 'center'
                     }}>
                         <Flex vertical >
-                            <h1>Create New Account</h1>
+                            <h1  className='font-bold text-3xl'>Create New Account</h1>
                             <div style={{ padding: '5px 0px' }}></div>
                             <p style={{ color: "#A4A1AA" }}>Please enter details</p>
                             <div style={{ padding: '10px 0px' }}></div>

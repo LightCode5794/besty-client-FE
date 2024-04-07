@@ -43,7 +43,7 @@ const LoginPage = function LoginPage() {
                         justifyContent: 'center'
                     }}>
                         <Flex vertical >
-                            <h1>Welcome 👋</h1>
+                            <h1 className='font-bold text-3xl'>Welcome 👋</h1>
                             <div style={{ padding: '5px 0px' }}></div>
                             <p style={{ color: "#A4A1AA" }}>Please login here</p>
                             <div style={{ padding: '15px 0px' }}></div>

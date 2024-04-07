@@ -1,0 +1,16 @@
+.customSlide {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .slideContent {
+    border: 2px solid #3182ce;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 200px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  

@@ -2,10 +2,8 @@
 
 import { Badge, Button, Drawer, Flex, Layout, Space } from "antd";
 import React, { useState } from "react";
-
 import { DrawerProps } from "antd";
-import { CloseOutlined, ShoppingOutlined } from '@ant-design/icons';
-
+import { ShoppingOutlined } from '@ant-design/icons';
 import '../../styles/Cart/CartSideBar.scss'
 import CartItem from "./CartItem";
 import { useAppSelector } from "@/store/hooks";
@@ -35,7 +33,7 @@ const CartSideBar: React.FC<DrawerProps> = ({ onClose, open }) => {
 
                         <ShoppingOutlined style={{ fontSize: 24 }} />
                     </Badge>
-                    <div className="ant-drawer-title">Giỏ hàng của tôi</div>
+                    <div className="ant-drawer-title">You have 3 items in cart</div>
                 </Space>
                 }
                 footer={
@@ -48,8 +46,8 @@ const CartSideBar: React.FC<DrawerProps> = ({ onClose, open }) => {
                                         <p style={{ fontWeight: "bold" }}>{customCurVND(TotalCart)}</p>
                                     </Space>
                                 </Flex>
-                                <Link href={`/checkout/cart`}>
-                                    <Button type='primary' style={{ fontSize: 16, marginTop: 16 }} block >
+                                <Link href='/cart'>
+                                    <Button className="bg-black" type='primary' style={{ fontSize: 16, marginTop: 16 }} block >
                                         Xem giỏ hàng của bạn
                                     </Button>
                                 </Link>
@@ -64,12 +62,12 @@ const CartSideBar: React.FC<DrawerProps> = ({ onClose, open }) => {
                 className={'ant-drawer-header-title'}  >
                 <Space direction='vertical' size={'large'}>
                     {
-                        ListCart.map((item, index) => {
-                            return (<CartItem itemKey={index} item={item} key={index} />)
-                        })
-                        // Array.from({ length: count }).map((_, i) => (
-                        //     <CartItem key={i} />
-                        // ))
+                        // ListCart.map((item, index) => {
+                        //     return (<CartItem itemKey={index} item={item} key={index} />)
+                        // })
+                        Array.from({ length: 10 }).map((_, i) => (
+                            <CartItem key={i} />
+                        ))
                     }
                 </Space>
             </Drawer>

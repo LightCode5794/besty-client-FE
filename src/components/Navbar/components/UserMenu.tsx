@@ -1,12 +1,10 @@
 import React from "react";
-import { message, MenuProps, Dropdown, Space, Flex } from "antd";
+import {  MenuProps, Dropdown, Space } from "antd";
 import { UserOutlined, LoginOutlined, DownOutlined, ShoppingOutlined, LogoutOutlined, HeartOutlined, FileMarkdownOutlined} from "@ant-design/icons";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { logout, selectUser } from "@/store/features/auth/authSlice";
-import { User } from "@/interfaces";
-import { useDispatch } from "react-redux";
 
 type MenuMode = "horizontal" | "inline";
 
@@ -38,6 +36,16 @@ const UserMenu = () => {
             label: <Link href={"/register"}>Đăng ký tài khoản</Link>,
             key: "/register",
             icon: <UserOutlined />,
+        },
+        {
+            label: <Link href={"/account"}>Tài khoản</Link>,
+            key: "/account",
+            icon: <UserOutlined />,
+        },
+        {
+            label: <Link href={"/login"}>Đăng xuất</Link>,
+            key: "/logout",
+            icon: <LogoutOutlined />,
         },
     ];
 

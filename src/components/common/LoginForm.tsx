@@ -105,14 +105,14 @@ const LoginForm: React.FC = () => {
                 <Spin spinning={loading} tip="Đang xử lý dữ liệu..." size='large' style={{ width: '100%' }} indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />}>
 
                     <Form
+                        className='w-full'
                         name="basic"
-                        style={{ width: '100%' }}
                         initialValues={{ remember: true }}
                         layout='vertical'
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
                         autoComplete="off"
-                        requiredMark = "optional"
+                        requiredMark="optional"
                     >
 
                         <Form.Item<FieldType>
@@ -121,7 +121,7 @@ const LoginForm: React.FC = () => {
                             rules={[{ required: true, message: 'Bạn chưa nhập Email/Số diện thoại!' }]}
 
                         >
-                            <Input placeholder='Email' size='large' style={{ borderRadius: 10 }} />
+                            <Input className='rounded-lg' placeholder='Email' size='large' />
                         </Form.Item>
 
                         <Form.Item<FieldType>
@@ -130,7 +130,7 @@ const LoginForm: React.FC = () => {
                             rules={[{ required: true, message: 'Mật khẩu chưa chính xác!' }]}
 
                         >
-                            <Input.Password placeholder='Password' size='large' style={{ borderRadius: 10 }} />
+                            <Input.Password className='rounded-lg' placeholder='Password' size='large' />
                         </Form.Item>
 
                         <Form.Item>
@@ -142,7 +142,7 @@ const LoginForm: React.FC = () => {
                         </Form.Item>
 
                         <Form.Item>
-                            <Button style={{ width: '100%', borderRadius: 10 }} type="primary" htmlType="submit" size='large'>
+                            <Button className="bg-black" style={{ width: '100%', borderRadius: 10 }} type="primary" htmlType="submit" size='large'>
                                 Login
                             </Button>
                         </Form.Item>

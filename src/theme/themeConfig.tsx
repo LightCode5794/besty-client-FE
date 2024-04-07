@@ -1,7 +1,6 @@
 "use client";
 
-import React from "react";
-import { ConfigProvider, ThemeConfig } from "antd";
+import { ThemeConfig } from "antd";
 
 // theme/themeConfig.ts
 
@@ -11,7 +10,7 @@ const theme: ThemeConfig = {
         colorBgContainer: '#FFFFFF',
         colorBorder: '#171717',
         colorBgBase: 'white',
-        fontFamily:  'Nunito,  sans-serif'
+        fontFamily: '__Jost_bfc8ce',
     },
     components: {
         Layout: {

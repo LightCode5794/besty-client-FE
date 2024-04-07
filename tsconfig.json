@@ -34,7 +34,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/components/ResponsiveAppBar.tsx"
-  ],
+, "src/components/common/RangeSlider.tsx"  ],
   "exclude": [
     "node_modules"
   ]
